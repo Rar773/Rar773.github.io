@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InstantNews — Daily Brief & News</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0b;
+      --bg2: #111113;
+      --bg3: #1a1a1e;
+      --red: #ff2d2d;
+      --red2: #ff5c5c;
+      --white: #f0f0f0;
+      --gray: #888;
+      --gray2: #555;
+      --border: rgba(255,255,255,0.07);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* TICKER */
+    .ticker-wrap { background: var(--red); padding: 7px 0; overflow: hidden; }
+    .ticker-track { display: flex; gap: 60px; animation: ticker 30s linear infinite; white-space: nowrap; }
+    .ticker-item { font-family: 'DM Mono', monospace; font-size: 11px; color: #fff; letter-spacing: 0.06em; text-transform: uppercase; flex-shrink: 0; }
+    .ticker-item span { margin: 0 10px; opacity: 0.5; }
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* NAV */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; background: rgba(10,10,11,0.96);
+      backdrop-filter: blur(20px); z-index: 99;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-icon { width: 34px; height: 34px; background: var(--red); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+    .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--white); letter-spacing: 0.05em; }
+    .logo-text span { color: var(--red); }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--gray); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .nav-cta { background: var(--red); color: #fff !important; padding: 7px 18px; border-radius: 6px; }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 60px 60px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-header-top {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      padding-bottom: 24px;
+    }
+    .page-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px; letter-spacing: 0.03em;
+    }
+    .page-title span { color: var(--red); }
+    .page-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px; color: var(--gray); letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .page-tabs {
+      display: flex; gap: 0;
+    }
+    .tab {
+      padding: 12px 24px; font-size: 14px; font-weight: 500;
+      color: var(--gray); cursor: pointer; border-bottom: 2px solid transparent;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .tab.active { color: var(--white); border-bottom-color: var(--red); }
+    .tab:hover { color: var(--white); }
+
+    /* MAIN LAYOUT */
+    .main-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 60px;
+    }
+    .content-area { padding: 48px 48px 80px 0; border-right: 1px solid var(--border); }
+    .sidebar { padding: 48px 0 80px 40px; }
+
+    /* FEATURED ARTICLE */
+    .featured-label {
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      color: var(--red); letter-spacing: 0.15em; text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .featured-label::after { content: ''; flex: 1; height: 1px; background: rgba(255,45,45,0.2); }
+
+    .featured-article {
+      margin-bottom: 56px; padding-bottom: 56px;
+      border-bottom: 1px solid var(--border);
+    }
+    .article-category {
+      display: inline-block;
+      background: rgba(255,45,45,0.1); border: 1px solid rgba(255,45,45,0.2);
+      color: var(--red2); font-size: 11px; font-weight: 500;
+      padding: 3px 10px; border-radius: 4px;
+      font-family: 'DM Mono', monospace; letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px; line-height: 1.25;
+      margin-bottom: 16px; color: var(--white);
+      font-weight: 700;
+    }
+    .article-title:hover { color: var(--red2); cursor: pointer; }
+    .article-meta {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 20px;
+    }
+    .article-time {
+      font-family: 'DM Mono', monospace; font-size: 11px;
+      color: var(--gray); letter-spacing: 0.05em;
+    }
+    .article-tag {
+      font-family: 'DM Mono', monospace; font-size: 11px;
+      color: var(--gray2); background: var(--bg3);
+      padding: 2px 8px; border-radius: 4px;
+    }
+    .article-excerpt {
+      font-size: 16px; line-height: 1.75; color: #aaa;
+      font-weight: 300; margin-bottom: 24px;
+    }
+    .article-excerpt strong { color: var(--white); font-weight: 500; }
+    .article-body {
+      font-size: 15px; line-height: 1.8; color: #999;
+      font-weight: 300;
+    }
+    .article-body p { margin-bottom: 16px; }
+    .article-body strong { color: var(--white); font-weight: 500; }
+    .article-body .highlight {
+      border-left: 3px solid var(--red);
+      padding: 16px 20px;
+      background: rgba(255,45,45,0.05);
+      border-radius: 0 8px 8px 0;
+      margin: 24px 0;
+      font-style: italic;
+      color: #bbb;
+    }
+    .read-more {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--red2); font-size: 14px; font-weight: 500;
+      text-decoration: none; margin-top: 20px;
+      transition: gap 0.2s;
+    }
+    .read-more:hover { gap: 12px; }
+
+    /* NEWS LIST */
+    .news-list { display: flex; flex-direction: column; gap: 0; }
+    .news-item {
+      padding: 28px 0; border-bottom: 1px solid var(--border);
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 20px; align-items: start;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .news-item:hover .news-item-title { color: var(--red2); }
+    .news-item-category {
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      color: var(--red); letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .news-item-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px; line-height: 1.3; color: var(--white);
+      margin-bottom: 10px; transition: color 0.2s;
+    }
+    .news-item-excerpt {
+      font-size: 13px; color: var(--gray); line-height: 1.6;
+    }
+    .news-item-meta {
+      display: flex; align-items: center; gap: 10px; margin-top: 12px;
+    }
+    .news-item-time {
+      font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gray2);
+    }
+    .news-item-tag {
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      color: var(--red2); background: rgba(255,45,45,0.08);
+      padding: 2px 7px; border-radius: 3px;
+    }
+    .news-item-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px; color: rgba(255,255,255,0.05);
+      line-height: 1; flex-shrink: 0;
+    }
+
+    /* DAILY DIGEST CARD */
+    .digest-card {
+      background: linear-gradient(135deg, rgba(255,45,45,0.08), rgba(255,45,45,0.03));
+      border: 1px solid rgba(255,45,45,0.2);
+      border-radius: 12px; padding: 28px;
+      margin-bottom: 40px;
+    }
+    .digest-card-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    }
+    .digest-icon { font-size: 20px; }
+    .digest-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px; letter-spacing: 0.05em;
+    }
+    .digest-date {
+      font-family: 'DM Mono', monospace; font-size: 11px;
+      color: var(--gray); margin-left: auto;
+    }
+    .digest-items { display: flex; flex-direction: column; gap: 16px; }
+    .digest-item { display: flex; gap: 14px; align-items: flex-start; }
+    .digest-num {
+      font-family: 'Bebas Neue', sans-serif; font-size: 22px;
+      color: var(--red); line-height: 1; flex-shrink: 0; width: 20px;
+    }
+    .digest-item-text { font-size: 13px; line-height: 1.6; color: #aaa; }
+    .digest-item-text strong { color: var(--white); font-weight: 500; display: block; margin-bottom: 2px; }
+
+    /* SIDEBAR */
+    .sidebar-section { margin-bottom: 40px; }
+    .sidebar-title {
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      color: var(--red); letter-spacing: 0.15em; text-transform: uppercase;
+      margin-bottom: 20px; padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-news { display: flex; flex-direction: column; gap: 0; }
+    .sidebar-item {
+      padding: 16px 0; border-bottom: 1px solid var(--border);
+      cursor: pointer;
+    }
+    .sidebar-item:last-child { border-bottom: none; }
+    .sidebar-item-cat {
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      color: var(--red); letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .sidebar-item-title {
+      font-size: 14px; font-weight: 500; line-height: 1.4;
+      color: var(--white); margin-bottom: 6px;
+      transition: color 0.2s;
+    }
+    .sidebar-item:hover .sidebar-item-title { color: var(--red2); }
+    .sidebar-item-time {
+      font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gray2);
+    }
+
+    /* ALERT BANNER */
+    .alert-banner {
+      background: var(--red); padding: 12px 60px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .alert-banner-label {
+      font-family: 'Bebas Neue', sans-serif; font-size: 16px;
+      letter-spacing: 0.1em; white-space: nowrap;
+    }
+    .alert-banner-text { font-size: 13px; font-weight: 500; }
+    .alert-banner-time {
+      font-family: 'DM Mono', monospace; font-size: 11px;
+      opacity: 0.7; margin-left: auto; white-space: nowrap;
+    }
+
+    /* TAGS */
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .tag {
+      font-family: 'DM Mono', monospace; font-size: 12px;
+      color: var(--gray); background: var(--bg3);
+      padding: 4px 12px; border-radius: 100px;
+      border: 1px solid var(--border); cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tag:hover { color: var(--white); border-color: rgba(255,255,255,0.2); }
+
+    @media (max-width: 900px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .page-header { padding: 40px 20px 0; }
+      .main-layout { grid-template-columns: 1fr; padding: 0 20px; }
+      .content-area { padding: 32px 0; border-right: none; }
+      .sidebar { padding: 0 0 40px; border-top: 1px solid var(--border); }
+      .alert-banner { padding: 12px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker-track">
+      <div class="ticker-item">⚡ LIVE <span>|</span> Pentagon cruise missiles push <span>|</span> Microsoft AI pivot <span>|</span> Fed Powell interim chair <span>|</span> Iran Hormuz warning <span>|</span> S&P -1.22% <span>|</span> Nasdaq -1.51% <span>|</span> Brent $109.26 <span>|</span> Follow @InstantNews73</div>
+      <div class="ticker-item">⚡ LIVE <span>|</span> Pentagon cruise missiles push <span>|</span> Microsoft AI pivot <span>|</span> Fed Powell interim chair <span>|</span> Iran Hormuz warning <span>|</span> S&P -1.22% <span>|</span> Nasdaq -1.51% <span>|</span> Brent $109.26 <span>|</span> Follow @InstantNews73</div>
+    </div>
+  </div>
+
+  <!-- HIGH ALERT BANNER -->
+  <div class="alert-banner">
+    <div class="alert-banner-label">🚨 HIGH ALERT</div>
+    <div class="alert-banner-text">Federal Reserve board appoints Jerome Powell as interim chair until Kevin Warsh is sworn in</div>
+    <div class="alert-banner-time">23:02 · May 15, 2026</div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="logo">
+      <div class="logo-icon">⚡</div>
+      <div class="logo-text">Instant<span>News</span></div>
+    </a>
+    <ul class="nav-links">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="news-demo.html" class="active">News</a></li>
+      <li><a href="moo-moc-demo.html">Markets</a></li>
+      <li><a href="index.html#faq">About</a></li>
+      <li><a href="https://x.com/InstantNews73" target="_blank" class="nav-cta">Follow on X</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-top">
+      <div class="page-title">Latest <span>News</span></div>
+      <div class="page-date">Friday, May 16, 2026</div>
+    </div>
+    <div class="page-tabs">
+      <a href="#" class="tab active">All</a>
+      <a href="#" class="tab">Markets</a>
+      <a href="#" class="tab">Fed</a>
+      <a href="#" class="tab">Geopolitics</a>
+      <a href="#" class="tab">Energy</a>
+      <a href="#" class="tab">Daily Brief</a>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main-layout">
+    <div class="content-area">
+
+      <!-- DAILY DIGEST -->
+      <div class="featured-label">📰 Today's Daily Brief</div>
+      <div class="digest-card">
+        <div class="digest-card-header">
+          <div class="digest-icon">📰</div>
+          <div class="digest-label">WHAT HAPPENED TODAY?</div>
+          <div class="digest-date">May 15, 2026 · 22:00</div>
+        </div>
+        <div class="digest-items">
+          <div class="digest-item">
+            <div class="digest-num">1</div>
+            <div class="digest-item-text">
+              <strong>Pentagon push for 10,000 cruise missiles</strong>
+              The U.S. military is significantly escalating its weapons procurement strategy, signaling heightened geopolitical tensions and increased defense spending as global conflicts intensify.
+            </div>
+          </div>
+          <div class="digest-item">
+            <div class="digest-num">2</div>
+            <div class="digest-item-text">
+              <strong>Microsoft exploring AI startup deals post-OpenAI</strong>
+              Microsoft is diversifying its AI strategy by hedging against its dependence on OpenAI amid potential partnership risks, signaling a major strategic shift in Big Tech AI positioning.
+            </div>
+          </div>
+          <div class="digest-item">
+            <div class="digest-num">3</div>
+            <div class="digest-item-text">
+              <strong>OpenAI Codex coming to ChatGPT mobile</strong>
+              OpenAI is expanding ChatGPT's functionality to mobile users, bringing advanced AI coding capabilities to a broader audience and intensifying competition with GitHub Copilot.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FEATURED -->
+      <div class="featured-label">Top Story</div>
+      <div class="featured-article">
+        <div class="article-category">⚡ Markets</div>
+        <div class="article-title">Bonds Rout Deepens as S&P Posts Worst Day Since March, Oil Surges Above $109</div>
+        <div class="article-meta">
+          <div class="article-time">🕐 22:11 · May 15, 2026</div>
+          <div class="article-tag">$SPY</div>
+          <div class="article-tag">$QQQ</div>
+          <div class="article-tag">$OIL</div>
+        </div>
+        <div class="article-excerpt">
+          A widespread selloff in bond markets dragged equities lower, abruptly interrupting the AI-fueled rally. <strong>The S&P 500 fell 1.22%</strong>, marking the largest single-day decline since March. Nasdaq dropped 1.51% as chipmakers — which had led the recent rally — gave back gains.
+        </div>
+        <div class="article-body">
+          <p>US 10-year Treasury yields surpassed 4.5% while Japan's 30-year debt touched 4% for the first time since 1999. In the United Kingdom, a political crisis pushed long-bond rates to a 28-year high, with the 10-year gilt yield jumping 15 basis points to 5.14%.</p>
+
+          <div class="highlight">
+            "The dollar extended its weekly gain. US crude settled above $105. With no end in sight to the Iran dispute, suspicion has grown that an effective closing of the Strait of Hormuz will exacerbate energy difficulties."
+          </div>
+
+          <p>Brent crude rose to <strong>$109.26 per barrel</strong>, up $3.54 or 3.35%, as Iran's Foreign Minister warned that all vessels except those "at war with us" could pass through the Strait of Hormuz — a waterway carrying 20% of global oil supply.</p>
+
+          <p>Technology shares led declines across Europe and Asia. South Korea's Kospi tumbled 6.1% as investors took profits in Samsung Electronics and SK Hynix. Nvidia fell 2.3% in premarket after a seven-session winning streak.</p>
+        </div>
+        <div class="tags">
+          <span class="tag">#Bonds</span>
+          <span class="tag">#S&P500</span>
+          <span class="tag">#Oil</span>
+          <span class="tag">#Iran</span>
+          <span class="tag">#Fed</span>
+        </div>
+        <a href="#" class="read-more">Read full analysis →</a>
+      </div>
+
+      <!-- NEWS LIST -->
+      <div class="news-list">
+
+        <div class="news-item">
+          <div>
+            <div class="news-item-category">⚡ Fed</div>
+            <div class="news-item-title">Fed Board Appoints Powell as Interim Chair Pending Warsh Confirmation</div>
+            <div class="news-item-excerpt">The Federal Reserve board formally designated Jerome Powell as chair pro tempore until Kevin Warsh is officially sworn in. Fed's Bowman and Miran issued a joint statement noting they did not back the pro tem designation.</div>
+            <div class="news-item-meta">
+              <div class="news-item-time">23:02 · May 15</div>
+              <div class="news-item-tag">HIGH ALERT</div>
+            </div>
+          </div>
+          <div class="news-item-number">01</div>
+        </div>
+
+        <div class="news-item">
+          <div>
+            <div class="news-item-category">⚡ Geopolitics</div>
+            <div class="news-item-title">Iran FM: All Vessels May Pass Hormuz Except Those at War With Us</div>
+            <div class="news-item-excerpt">Iran's Foreign Minister Araghchi issued a conditional warning regarding the Strait of Hormuz, through which approximately 20% of global oil supply flows. Markets interpreted the statement as escalatory.</div>
+            <div class="news-item-meta">
+              <div class="news-item-time">12:07 · May 15</div>
+              <div class="news-item-tag">$OIL</div>
+            </div>
+          </div>
+          <div class="news-item-number">02</div>
+        </div>
+
+        <div class="news-item">
+          <div>
+            <div class="news-item-category">⚡ Stocks</div>
+            <div class="news-item-title">Nvidia Raises CoreWeave Stake by 94.5% to 47.2 Million Class A Shares</div>
+            <div class="news-item-excerpt">According to an SEC filing, Nvidia has nearly doubled its stake in AI cloud provider CoreWeave, signaling continued confidence in the AI infrastructure buildout despite broader market weakness.</div>
+            <div class="news-item-meta">
+              <div class="news-item-time">22:18 · May 15</div>
+              <div class="news-item-tag">$NVDA</div>
+            </div>
+          </div>
+          <div class="news-item-number">03</div>
+        </div>
+
+        <div class="news-item">
+          <div>
+            <div class="news-item-category">⚡ Stocks</div>
+            <div class="news-item-title">BlackRock Private Credit Fund Valuations Under DOJ Probe</div>
+            <div class="news-item-excerpt">The Department of Justice is reportedly investigating the valuation practices of BlackRock's private credit fund, adding regulatory pressure to the world's largest asset manager.</div>
+            <div class="news-item-meta">
+              <div class="news-item-time">22:20 · May 15</div>
+              <div class="news-item-tag">$BLK</div>
+            </div>
+          </div>
+          <div class="news-item-number">04</div>
+        </div>
+
+        <div class="news-item">
+          <div>
+            <div class="news-item-category">⚡ UK Politics</div>
+            <div class="news-item-title">PM Starmer May Step Aside for Burnham After Makerfield By-Election</div>
+            <div class="news-item-excerpt">Loyalists who have discussed the leadership standoff with Sir Keir claim he is far less defiant in private than in public, with "all options" under consideration ahead of the pivotal Makerfield by-election.</div>
+            <div class="news-item-meta">
+              <div class="news-item-time">22:22 · May 15</div>
+              <div class="news-item-tag">GBP</div>
+            </div>
+          </div>
+          <div class="news-item-number">05</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+      <!-- CFTC -->
+      <div class="sidebar-section">
+        <div class="sidebar-title">// This Week's CFTC</div>
+        <div style="background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 20px;">
+          <div style="font-family: 'Bebas Neue', sans-serif; font-size: 16px; margin-bottom: 16px; letter-spacing: 0.04em;">Week Ended May 12, 2026</div>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; justify-content: space-between; font-size: 13px;">
+              <span style="color: var(--gray);">JPY</span>
+              <span style="color: #ff5c5c; font-family: 'DM Mono', monospace; font-size: 12px;">🔴 -75,102</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px;">
+              <span style="color: var(--gray);">GBP</span>
+              <span style="color: #ff5c5c; font-family: 'DM Mono', monospace; font-size: 12px;">🔴 -43,059</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px;">
+              <span style="color: var(--gray);">EUR</span>
+              <span style="color: #4ade80; font-family: 'DM Mono', monospace; font-size: 12px;">🟢 +40,200</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px;">
+              <span style="color: var(--gray);">BTC</span>
+              <span style="color: #4ade80; font-family: 'DM Mono', monospace; font-size: 12px;">🟢 +1,259</span>
+            </div>
+            <div style="height: 1px; background: var(--border); margin: 4px 0;"></div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px;">
+              <span style="color: var(--gray);">S&P Spec</span>
+              <span style="color: #ff5c5c; font-family: 'DM Mono', monospace; font-size: 12px;">🔴 +28,764</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px;">
+              <span style="color: var(--gray);">S&P Mgrs</span>
+              <span style="color: #4ade80; font-family: 'DM Mono', monospace; font-size: 12px;">🟢 +42,501</span>
+            </div>
+          </div>
+          <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--gray); line-height: 1.5;">
+            Smart money still long. Volatility incoming short-term.
+          </div>
+        </div>
+      </div>
+
+      <!-- MARKET CLOSE -->
+      <div class="sidebar-section">
+        <div class="sidebar-title">// Market Close · May 15</div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border);">
+            <span style="font-size: 14px; font-weight: 500;">S&P 500</span>
+            <span style="color: #ff5c5c; font-family: 'DM Mono', monospace; font-size: 13px;">7,410 ▼ 1.22%</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border);">
+            <span style="font-size: 14px; font-weight: 500;">Nasdaq</span>
+            <span style="color: #ff5c5c; font-family: 'DM Mono', monospace; font-size: 13px;">26,232 ▼ 1.51%</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border);">
+            <span style="font-size: 14px; font-weight: 500;">Dow Jones</span>
+            <span style="color: #ff5c5c; font-family: 'DM Mono', monospace; font-size: 13px;">49,546 ▼ 1.03%</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border);">
+            <span style="font-size: 14px; font-weight: 500;">Brent Crude</span>
+            <span style="color: #4ade80; font-family: 'DM Mono', monospace; font-size: 13px;">$109.26 ▲ 3.35%</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0;">
+            <span style="font-size: 14px; font-weight: 500;">10Y Treasury</span>
+            <span style="color: #ff5c5c; font-family: 'DM Mono', monospace; font-size: 13px;">4.54% ▲ 6bps</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- LATEST -->
+      <div class="sidebar-section">
+        <div class="sidebar-title">// Breaking Now</div>
+        <div class="sidebar-news">
+          <div class="sidebar-item">
+            <div class="sidebar-item-cat">Energy</div>
+            <div class="sidebar-item-title">Fire extinguished at gas facility in Venezuela's Lake Maracaibo</div>
+            <div class="sidebar-item-time">23:29 · May 15</div>
+          </div>
+          <div class="sidebar-item">
+            <div class="sidebar-item-cat">UK</div>
+            <div class="sidebar-item-title">UK finalising defence investment plan for prompt publication</div>
+            <div class="sidebar-item-time">23:13 · May 15</div>
+          </div>
+          <div class="sidebar-item">
+            <div class="sidebar-item-cat">Lebanon</div>
+            <div class="sidebar-item-title">Six dead in Israeli strike on civil defense center in southern Lebanon</div>
+            <div class="sidebar-item-time">23:18 · May 15</div>
+          </div>
+          <div class="sidebar-item">
+            <div class="sidebar-item-cat">Stocks</div>
+            <div class="sidebar-item-title">Advanced Micro Devices enters $5B credit pact</div>
+            <div class="sidebar-item-time">22:19 · May 15</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOLLOW -->
+      <div style="background: linear-gradient(135deg, rgba(255,45,45,0.1), rgba(255,45,45,0.03)); border: 1px solid rgba(255,45,45,0.2); border-radius: 12px; padding: 24px; text-align: center;">
+        <div style="font-size: 24px; margin-bottom: 12px;">⚡</div>
+        <div style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; margin-bottom: 8px; letter-spacing: 0.04em;">Get Alerts Instantly</div>
+        <div style="font-size: 13px; color: var(--gray); margin-bottom: 20px; line-height: 1.6;">Follow us on X and Telegram for real-time breaking news alerts.</div>
+        <a href="https://x.com/InstantNews73" target="_blank" style="display: block; background: var(--red); color: #fff; padding: 10px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 500; margin-bottom: 8px;">Follow @InstantNews73</a>
+        <a href="https://t.me/FastestNewsFeed" target="_blank" style="display: block; background: var(--bg3); color: var(--white); padding: 10px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 500; border: 1px solid var(--border);">Join Telegram</a>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
