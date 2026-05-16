@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -825,18 +824,59 @@
             <div class="feed-widget-label">Live Feed</div>
             <div class="feed-widget-handle">@InstantNews73</div>
           </div>
-          <a class="twitter-timeline"
-             data-theme="dark"
-             data-height="600"
-             data-chrome="noheader nofooter noborders transparent"
-             data-tweet-limit="5"
-             href="https://twitter.com/InstantNews73">
-          </a>
-          <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          <div id="live-feed" style="padding: 8px 0;">
+            <div style="padding: 24px 20px; color: var(--gray); font-size: 13px; text-align:center;">Loading...</div>
+          </div>
+          <a href="news-demo.html" style="display:block; text-align:center; padding: 14px; border-top: 1px solid var(--border); font-size: 13px; color: var(--gray); text-decoration:none; transition: color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--gray)'">View all news →</a>
         </div>
       </div>
     </div>
   </section>
+
+  <script>
+    const FEED_API = 'https://instantnews-api-production.up.railway.app/api/news?limit=6';
+
+    function feedFormatTime(iso) {
+      const d = new Date(iso);
+      const now = new Date();
+      const diffMs = now - d;
+      const diffMin = Math.floor(diffMs / 60000);
+      if (diffMin < 1) return 'just now';
+      if (diffMin < 60) return `${diffMin}m ago`;
+      const diffH = Math.floor(diffMin / 60);
+      if (diffH < 24) return `${diffH}h ago`;
+      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return `${months[d.getMonth()]} ${d.getDate()}`;
+    }
+
+    async function loadFeed() {
+      try {
+        const res = await fetch(FEED_API);
+        const json = await res.json();
+        const news = json.data || [];
+        const feed = document.getElementById('live-feed');
+        if (!news.length) {
+          feed.innerHTML = '<div style="padding:24px 20px;color:var(--gray);font-size:13px;text-align:center;">No news yet.</div>';
+          return;
+        }
+        feed.innerHTML = news.map(item => `
+          <div style="padding: 14px 20px; border-bottom: 1px solid var(--border); transition: background 0.2s;" onmouseover="this.style.background='var(--bg3)'" onmouseout="this.style.background='transparent'">
+            ${item.high_alert ? '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--red);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">🚨 HIGH ALERT</div>' : ''}
+            <div style="font-size:13px;font-weight:500;line-height:1.4;color:var(--white);margin-bottom:6px;">${item.headline}</div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gray2);">${feedFormatTime(item.created_at)}</span>
+              ${item.ticker ? `<span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--red2);background:rgba(255,45,45,0.08);padding:2px 6px;border-radius:3px;">$${item.ticker}</span>` : ''}
+            </div>
+          </div>`).join('');
+      } catch(e) {
+        document.getElementById('live-feed').innerHTML =
+          '<div style="padding:24px 20px;color:var(--gray);font-size:13px;text-align:center;">⚠️ Feed unavailable</div>';
+      }
+    }
+
+    loadFeed();
+    setInterval(loadFeed, 60000);
+  </script>
 
   <!-- FAQ -->
   <section class="section" id="faq">
