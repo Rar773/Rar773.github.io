@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -494,74 +493,12 @@
         <a href="#" class="read-more">Read full analysis →</a>
       </div>
 
-      <!-- NEWS LIST -->
-      <div class="news-list">
-
-        <div class="news-item">
-          <div>
-            <div class="news-item-category">⚡ Fed</div>
-            <div class="news-item-title">Fed Board Appoints Powell as Interim Chair Pending Warsh Confirmation</div>
-            <div class="news-item-excerpt">The Federal Reserve board formally designated Jerome Powell as chair pro tempore until Kevin Warsh is officially sworn in. Fed's Bowman and Miran issued a joint statement noting they did not back the pro tem designation.</div>
-            <div class="news-item-meta">
-              <div class="news-item-time">23:02 · May 15</div>
-              <div class="news-item-tag">HIGH ALERT</div>
-            </div>
-          </div>
-          <div class="news-item-number">01</div>
+      <!-- NEWS LIST — loaded from API -->
+      <div id="news-list" class="news-list">
+        <div style="padding: 40px 0; text-align:center; color: var(--gray); font-size:14px;">
+          <div style="font-size:24px; margin-bottom:12px;">⏳</div>
+          Loading latest news...
         </div>
-
-        <div class="news-item">
-          <div>
-            <div class="news-item-category">⚡ Geopolitics</div>
-            <div class="news-item-title">Iran FM: All Vessels May Pass Hormuz Except Those at War With Us</div>
-            <div class="news-item-excerpt">Iran's Foreign Minister Araghchi issued a conditional warning regarding the Strait of Hormuz, through which approximately 20% of global oil supply flows. Markets interpreted the statement as escalatory.</div>
-            <div class="news-item-meta">
-              <div class="news-item-time">12:07 · May 15</div>
-              <div class="news-item-tag">$OIL</div>
-            </div>
-          </div>
-          <div class="news-item-number">02</div>
-        </div>
-
-        <div class="news-item">
-          <div>
-            <div class="news-item-category">⚡ Stocks</div>
-            <div class="news-item-title">Nvidia Raises CoreWeave Stake by 94.5% to 47.2 Million Class A Shares</div>
-            <div class="news-item-excerpt">According to an SEC filing, Nvidia has nearly doubled its stake in AI cloud provider CoreWeave, signaling continued confidence in the AI infrastructure buildout despite broader market weakness.</div>
-            <div class="news-item-meta">
-              <div class="news-item-time">22:18 · May 15</div>
-              <div class="news-item-tag">$NVDA</div>
-            </div>
-          </div>
-          <div class="news-item-number">03</div>
-        </div>
-
-        <div class="news-item">
-          <div>
-            <div class="news-item-category">⚡ Stocks</div>
-            <div class="news-item-title">BlackRock Private Credit Fund Valuations Under DOJ Probe</div>
-            <div class="news-item-excerpt">The Department of Justice is reportedly investigating the valuation practices of BlackRock's private credit fund, adding regulatory pressure to the world's largest asset manager.</div>
-            <div class="news-item-meta">
-              <div class="news-item-time">22:20 · May 15</div>
-              <div class="news-item-tag">$BLK</div>
-            </div>
-          </div>
-          <div class="news-item-number">04</div>
-        </div>
-
-        <div class="news-item">
-          <div>
-            <div class="news-item-category">⚡ UK Politics</div>
-            <div class="news-item-title">PM Starmer May Step Aside for Burnham After Makerfield By-Election</div>
-            <div class="news-item-excerpt">Loyalists who have discussed the leadership standoff with Sir Keir claim he is far less defiant in private than in public, with "all options" under consideration ahead of the pivotal Makerfield by-election.</div>
-            <div class="news-item-meta">
-              <div class="news-item-time">22:22 · May 15</div>
-              <div class="news-item-tag">GBP</div>
-            </div>
-          </div>
-          <div class="news-item-number">05</div>
-        </div>
-
       </div>
     </div>
 
@@ -633,30 +570,11 @@
         </div>
       </div>
 
-      <!-- LATEST -->
+      <!-- BREAKING NOW — loaded from API -->
       <div class="sidebar-section">
         <div class="sidebar-title">// Breaking Now</div>
-        <div class="sidebar-news">
-          <div class="sidebar-item">
-            <div class="sidebar-item-cat">Energy</div>
-            <div class="sidebar-item-title">Fire extinguished at gas facility in Venezuela's Lake Maracaibo</div>
-            <div class="sidebar-item-time">23:29 · May 15</div>
-          </div>
-          <div class="sidebar-item">
-            <div class="sidebar-item-cat">UK</div>
-            <div class="sidebar-item-title">UK finalising defence investment plan for prompt publication</div>
-            <div class="sidebar-item-time">23:13 · May 15</div>
-          </div>
-          <div class="sidebar-item">
-            <div class="sidebar-item-cat">Lebanon</div>
-            <div class="sidebar-item-title">Six dead in Israeli strike on civil defense center in southern Lebanon</div>
-            <div class="sidebar-item-time">23:18 · May 15</div>
-          </div>
-          <div class="sidebar-item">
-            <div class="sidebar-item-cat">Stocks</div>
-            <div class="sidebar-item-title">Advanced Micro Devices enters $5B credit pact</div>
-            <div class="sidebar-item-time">22:19 · May 15</div>
-          </div>
+        <div id="sidebar-news" class="sidebar-news">
+          <div style="padding: 16px 0; color: var(--gray); font-size: 13px;">Loading...</div>
         </div>
       </div>
 
@@ -672,5 +590,95 @@
     </div>
   </div>
 
-</body>
-</html>
+  <script>
+    const API = 'https://instantnews-api-production.up.railway.app/api/news';
+
+    function formatTime(iso) {
+      const d = new Date(iso);
+      const now = new Date();
+      const isToday = d.toDateString() === now.toDateString();
+      const hh = d.getHours().toString().padStart(2,'0');
+      const mm = d.getMinutes().toString().padStart(2,'0');
+      const time = `${hh}:${mm}`;
+      if (isToday) return `${time} · Today`;
+      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return `${time} · ${months[d.getMonth()]} ${d.getDate()}`;
+    }
+
+    function categoryLabel(cat) {
+      const map = {
+        'markets': '⚡ Markets', 'fed': '⚡ Fed', 'geopolitics': '⚡ Geopolitics',
+        'energy': '⚡ Energy', 'stocks': '⚡ Stocks', 'crypto': '⚡ Crypto',
+        'other': '⚡ News'
+      };
+      return map[cat] || '⚡ News';
+    }
+
+    async function loadNews() {
+      try {
+        const res = await fetch(API);
+        const json = await res.json();
+        const news = json.data || [];
+
+        // --- MAIN NEWS LIST ---
+        const list = document.getElementById('news-list');
+        if (!news.length) {
+          list.innerHTML = '<div style="padding:40px 0;text-align:center;color:var(--gray);font-size:14px;">No news yet today.</div>';
+        } else {
+          list.innerHTML = news.map((item, i) => {
+            const isAlert = item.high_alert;
+            const ticker = item.ticker ? `<div class="news-item-tag">$${item.ticker}</div>` : '';
+            const alertTag = isAlert ? `<div class="news-item-tag" style="color:var(--red);background:rgba(255,45,45,0.12);">🚨 HIGH ALERT</div>` : '';
+            return `
+              <div class="news-item" style="${isAlert ? 'border-left: 3px solid var(--red); padding-left: 16px;' : ''}">
+                <div>
+                  <div class="news-item-category">${categoryLabel(item.category)}</div>
+                  <div class="news-item-title">${item.headline}</div>
+                  ${item.content ? `<div class="news-item-excerpt">${item.content}</div>` : ''}
+                  <div class="news-item-meta">
+                    <div class="news-item-time">${formatTime(item.created_at)}</div>
+                    ${ticker}${alertTag}
+                  </div>
+                </div>
+                <div class="news-item-number">${String(i+1).padStart(2,'0')}</div>
+              </div>`;
+          }).join('');
+        }
+
+        // --- HIGH ALERT BANNER — najnovší high_alert ---
+        const alertItem = news.find(n => n.high_alert);
+        const banner = document.querySelector('.alert-banner');
+        if (alertItem && banner) {
+          banner.style.display = 'flex';
+          banner.querySelector('.alert-banner-text').textContent = alertItem.headline;
+          banner.querySelector('.alert-banner-time').textContent = formatTime(alertItem.created_at);
+        } else if (banner) {
+          banner.style.display = 'none';
+        }
+
+        // --- TICKER — top 5 headlines ---
+        const tickerText = news.slice(0, 5).map(n => n.headline).join(' <span>|</span> ');
+        document.querySelectorAll('.ticker-item').forEach(el => {
+          el.innerHTML = `⚡ LIVE <span>|</span> ${tickerText} <span>|</span> Follow @InstantNews73`;
+        });
+
+        // --- SIDEBAR BREAKING NOW — top 4 ---
+        const sidebarNews = document.getElementById('sidebar-news');
+        sidebarNews.innerHTML = news.slice(0, 4).map(item => `
+          <div class="sidebar-item">
+            <div class="sidebar-item-cat">${item.category === 'other' ? 'News' : item.category}</div>
+            <div class="sidebar-item-title">${item.headline}</div>
+            <div class="sidebar-item-time">${formatTime(item.created_at)}</div>
+          </div>`).join('');
+
+      } catch(e) {
+        document.getElementById('news-list').innerHTML =
+          '<div style="padding:40px 0;text-align:center;color:var(--gray);font-size:14px;">⚠️ Could not load news. Try again later.</div>';
+        console.error('API error:', e);
+      }
+    }
+
+    loadNews();
+    // Auto-refresh každých 60 sekúnd
+    setInterval(loadNews, 60000);
+  </script>
