@@ -5,68 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>InstantNews — Market Imbalance Analysis</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #0a0a0b;
-      --bg2: #111113;
-      --bg3: #1a1a1e;
-      --red: #ff2d2d;
-      --red2: #ff5c5c;
-      --green: #22c55e;
-      --green2: #4ade80;
+      --bg: #0a0a0b; --bg2: #111113; --bg3: #1a1a1e;
+      --red: #ff2d2d; --red2: #ff5c5c;
+      --green: #22c55e; --green2: #4ade80;
       --amber: #ffb800;
-      --white: #f0f0f0;
-      --gray: #888;
-      --gray2: #555;
+      --white: #f0f0f0; --gray: #888; --gray2: #555;
       --border: rgba(255,255,255,0.07);
     }
     html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: 'DM Sans', sans-serif;
-      overflow-x: hidden;
-    }
+    body { background: var(--bg); color: var(--white); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
 
-    /* TICKER */
     .ticker-wrap { background: var(--red); padding: 7px 0; overflow: hidden; }
     .ticker-track { display: flex; gap: 60px; animation: ticker 30s linear infinite; white-space: nowrap; }
     .ticker-item { font-family: 'DM Mono', monospace; font-size: 11px; color: #fff; letter-spacing: 0.06em; text-transform: uppercase; flex-shrink: 0; }
     .ticker-item span { margin: 0 10px; opacity: 0.5; }
     @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-    /* NAV */
-    nav {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 60px; border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; background: rgba(10,10,11,0.96);
-      backdrop-filter: blur(20px); z-index: 99;
-    }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 60px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(10,10,11,0.96); backdrop-filter: blur(20px); z-index: 99; }
     .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
     .logo-icon { width: 34px; height: 34px; background: var(--red); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
     .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--white); letter-spacing: 0.05em; }
     .logo-text span { color: var(--red); }
     .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
     .nav-links a { color: var(--gray); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--white); }
-    .nav-links a.active { color: var(--white); }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
     .nav-cta { background: var(--red); color: #fff !important; padding: 7px 18px; border-radius: 6px; }
 
-    /* PAGE HEADER */
-    .page-header {
-      padding: 48px 60px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .page-header-top {
-      display: flex; align-items: flex-end; justify-content: space-between;
-      padding-bottom: 24px;
-    }
-    .page-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 48px; letter-spacing: 0.03em;
-    }
+    .page-header { padding: 48px 60px 0; border-bottom: 1px solid var(--border); }
+    .page-header-top { display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 24px; }
+    .page-title { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 0.03em; }
     .page-title span { color: var(--red); }
     .page-subtitle { font-size: 14px; color: var(--gray); margin-top: 4px; }
     .page-tabs { display: flex; gap: 0; }
@@ -74,243 +45,83 @@
     .tab.active { color: var(--white); border-bottom-color: var(--red); }
     .tab:hover { color: var(--white); }
 
-    /* MAIN */
     .main { max-width: 1200px; margin: 0 auto; padding: 48px 60px 80px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
 
-    /* TODAY SECTION */
-    .section-header {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 32px;
-    }
-    .section-label {
-      font-family: 'DM Mono', monospace; font-size: 11px;
-      color: var(--red); letter-spacing: 0.15em; text-transform: uppercase;
-    }
-    .section-date {
-      font-family: 'DM Mono', monospace; font-size: 12px; color: var(--gray);
-    }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+    .section-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 0.15em; text-transform: uppercase; }
+    .section-date { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--gray); }
 
-    /* IMBALANCE CARD */
-    .imbalance-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-bottom: 48px;
-    }
-    .imbalance-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: border-color 0.2s;
-    }
+    .imbalance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 48px; }
+    .imbalance-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: border-color 0.2s; }
     .imbalance-card:hover { border-color: rgba(255,255,255,0.12); }
-
-    .imbalance-card-header {
-      padding: 24px 28px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .imbalance-type {
-      display: flex; align-items: center; gap: 10px;
-    }
-    .imbalance-badge {
-      font-family: 'Bebas Neue', sans-serif; font-size: 14px;
-      letter-spacing: 0.1em; padding: 4px 12px; border-radius: 6px;
-    }
+    .imbalance-card-header { padding: 24px 28px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .imbalance-type { display: flex; align-items: center; gap: 10px; }
+    .imbalance-badge { font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 0.1em; padding: 4px 12px; border-radius: 6px; }
     .badge-moo { background: rgba(34,197,94,0.15); color: var(--green2); border: 1px solid rgba(34,197,94,0.3); }
     .badge-moc { background: rgba(255,45,45,0.12); color: var(--red2); border: 1px solid rgba(255,45,45,0.3); }
-    .imbalance-time {
-      font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gray);
-    }
-
+    .imbalance-time { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gray); }
     .imbalance-bars { padding: 24px 28px; }
-    .bar-row {
-      display: grid; grid-template-columns: 80px 1fr 100px;
-      align-items: center; gap: 16px; margin-bottom: 18px;
-    }
+    .bar-row { display: grid; grid-template-columns: 80px 1fr 100px; align-items: center; gap: 16px; margin-bottom: 18px; }
     .bar-label { font-size: 13px; color: var(--gray); font-weight: 500; }
-    .bar-track {
-      height: 8px; background: var(--bg3); border-radius: 100px;
-      position: relative; overflow: visible;
-    }
-    .bar-fill {
-      height: 100%; border-radius: 100px;
-      position: relative;
-      transition: width 1s ease;
-    }
+    .bar-track { height: 8px; background: var(--bg3); border-radius: 100px; }
+    .bar-fill { height: 100%; border-radius: 100px; transition: width 1s ease; }
     .bar-fill.positive { background: linear-gradient(90deg, #16a34a, var(--green2)); }
     .bar-fill.negative { background: linear-gradient(90deg, #dc2626, var(--red2)); }
-    .bar-value {
-      font-family: 'DM Mono', monospace; font-size: 12px;
-      text-align: right; font-weight: 500;
-    }
+    .bar-value { font-family: 'DM Mono', monospace; font-size: 12px; text-align: right; font-weight: 500; }
     .bar-value.positive { color: var(--green2); }
     .bar-value.negative { color: var(--red2); }
-
-    /* CLAUDE ANALYSIS */
-    .claude-analysis {
-      margin: 0 28px 24px;
-      background: rgba(255,184,0,0.04);
-      border: 1px solid rgba(255,184,0,0.15);
-      border-radius: 12px;
-      padding: 20px;
-    }
-    .claude-header {
-      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
-    }
-    .claude-icon {
-      width: 28px; height: 28px;
-      background: linear-gradient(135deg, #ff9500, #ffb800);
-      border-radius: 6px; display: flex; align-items: center;
-      justify-content: center; font-size: 14px;
-    }
-    .claude-label {
-      font-size: 12px; font-weight: 500; color: var(--amber);
-      letter-spacing: 0.05em;
-    }
+    .claude-analysis { margin: 0 28px 24px; background: rgba(255,184,0,0.04); border: 1px solid rgba(255,184,0,0.15); border-radius: 12px; padding: 20px; }
+    .claude-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .claude-icon { width: 28px; height: 28px; background: linear-gradient(135deg, #ff9500, #ffb800); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+    .claude-label { font-size: 12px; font-weight: 500; color: var(--amber); letter-spacing: 0.05em; }
     .claude-label span { color: var(--gray); font-weight: 400; margin-left: 4px; }
-    .claude-text {
-      font-size: 14px; line-height: 1.7; color: #bbb;
-      font-style: italic;
-    }
-    .claude-text strong { color: var(--white); font-style: normal; font-weight: 500; }
-
-    /* SIGNAL FOOTER */
-    .signal-footer {
-      padding: 16px 28px;
-      border-top: 1px solid var(--border);
-      display: flex; align-items: center; gap: 12px;
-    }
-    .signal {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 12px; font-weight: 500;
-      padding: 4px 12px; border-radius: 100px;
-    }
+    .claude-text { font-size: 14px; line-height: 1.7; color: #bbb; font-style: italic; }
+    .signal-footer { padding: 16px 28px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .signal { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 100px; }
     .signal.bearish { background: rgba(255,45,45,0.1); color: var(--red2); border: 1px solid rgba(255,45,45,0.2); }
     .signal.bullish { background: rgba(34,197,94,0.1); color: var(--green2); border: 1px solid rgba(34,197,94,0.2); }
     .signal.neutral { background: rgba(255,184,0,0.1); color: var(--amber); border: 1px solid rgba(255,184,0,0.2); }
     .signal-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-    .signal-markets { margin-left: auto; display: flex; gap: 8px; }
-    .market-tag {
-      font-family: 'DM Mono', monospace; font-size: 11px;
-      color: var(--gray2); background: var(--bg3);
-      padding: 3px 8px; border-radius: 4px;
-    }
 
-    /* HISTORY TABLE */
-    .history-section { margin-top: 60px; }
-    .history-table {
-      width: 100%; border-collapse: collapse;
-      border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
-    }
-    .history-table th {
-      background: var(--bg2); padding: 14px 20px;
-      font-family: 'DM Mono', monospace; font-size: 10px;
-      color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase;
-      text-align: left; border-bottom: 1px solid var(--border);
-    }
-    .history-table td {
-      padding: 16px 20px; border-bottom: 1px solid var(--border);
-      font-size: 14px;
-    }
+    .history-table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .history-table th { background: var(--bg2); padding: 14px 20px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; text-align: left; border-bottom: 1px solid var(--border); }
+    .history-table td { padding: 16px 20px; border-bottom: 1px solid var(--border); font-size: 14px; }
     .history-table tr:last-child td { border-bottom: none; }
     .history-table tr:hover td { background: var(--bg2); }
     .td-mono { font-family: 'DM Mono', monospace; font-size: 13px; }
     .td-positive { color: var(--green2); }
     .td-negative { color: var(--red2); }
     .td-neutral { color: var(--gray); }
-    .type-badge {
-      font-family: 'DM Mono', monospace; font-size: 10px;
-      padding: 3px 8px; border-radius: 4px; letter-spacing: 0.06em;
-    }
+    .type-badge { font-family: 'DM Mono', monospace; font-size: 10px; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.06em; }
     .type-moo { background: rgba(34,197,94,0.1); color: var(--green2); }
     .type-moc { background: rgba(255,45,45,0.1); color: var(--red2); }
+    .col-hide-mobile {}
 
-    /* CHART AREA */
-    .chart-section {
-      margin-top: 48px;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px;
-    }
-    .chart-header {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 28px;
-    }
-    .chart-title {
-      font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.04em;
-    }
-    .chart-legend { display: flex; gap: 20px; }
-    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--gray); }
-    .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
-    .legend-dot.sp { background: #3b82f6; }
-    .legend-dot.nq { background: #8b5cf6; }
-    .legend-dot.dj { background: var(--amber); }
+    .cftc-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 24px; }
+    .cftc-week { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.04em; margin-bottom: 20px; }
+    .cftc-analysis { font-size: 14px; line-height: 1.8; color: #bbb; white-space: pre-line; }
 
-    /* SVG CHART */
-    .chart-svg { width: 100%; overflow: visible; }
-
-    /* EXPLANATION */
-    .explainer {
-      background: var(--bg2); border: 1px solid var(--border);
-      border-radius: 16px; padding: 32px;
-      margin-top: 48px;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
-    }
-    .explainer h3 {
-      font-family: 'Bebas Neue', sans-serif; font-size: 22px;
-      letter-spacing: 0.04em; margin-bottom: 12px;
-    }
+    .explainer { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .explainer h3 { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.04em; margin-bottom: 12px; }
     .explainer p { font-size: 14px; color: var(--gray); line-height: 1.7; }
     .explainer ul { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
     .explainer li { font-size: 13px; color: var(--gray); display: flex; gap: 8px; }
     .explainer li::before { content: '→'; color: var(--red); flex-shrink: 0; }
 
-    /* HAMBURGER */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
-    }
-    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(10,10,11,0.98);
-      z-index: 200;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 32px;
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      color: var(--white); text-decoration: none;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 36px; letter-spacing: 0.05em;
-      transition: color 0.2s;
-    }
-    .mobile-menu a:hover { color: var(--red); }
-    .mobile-menu-close {
-      position: absolute; top: 24px; right: 24px;
-      font-size: 32px; color: var(--white);
-      cursor: pointer; background: none; border: none;
-    }
-    .mobile-cta {
-      background: var(--red) !important;
-      color: #fff !important;
-      padding: 14px 32px !important;
-      border-radius: 8px !important;
-      font-size: 20px !important;
-    }
+    .empty-state { text-align: center; padding: 80px 20px; color: var(--gray); }
+    .empty-state .empty-icon { font-size: 40px; margin-bottom: 16px; }
+    .empty-state p { font-size: 14px; line-height: 1.7; }
 
-    /* Mobile table — hide less important columns */
-    .col-hide-mobile { }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+    .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10,10,11,0.98); z-index: 200; flex-direction: column; align-items: center; justify-content: center; gap: 32px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--white); text-decoration: none; font-family: 'Bebas Neue', sans-serif; font-size: 36px; letter-spacing: 0.05em; transition: color 0.2s; }
+    .mobile-menu a:hover { color: var(--red); }
+    .mobile-menu-close { position: absolute; top: 24px; right: 24px; font-size: 32px; color: var(--white); cursor: pointer; background: none; border: none; }
+    .mobile-cta { background: var(--red) !important; color: #fff !important; padding: 14px 32px !important; border-radius: 8px !important; font-size: 20px !important; }
 
     @media (max-width: 900px) {
       nav { padding: 16px 20px; }
@@ -328,17 +139,11 @@
       .imbalance-bars { padding: 20px; }
       .imbalance-card-header { padding: 18px 20px 14px; }
       .claude-analysis { margin: 0 20px 20px; }
-      .signal-footer { flex-wrap: wrap; padding: 14px 20px; gap: 8px; }
-      .signal-markets { margin-left: 0; }
-      .chart-section { padding: 20px 16px; }
-      .chart-header { flex-direction: column; align-items: flex-start; gap: 12px; }
-      .chart-legend { flex-wrap: wrap; gap: 12px; }
-      .explainer { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
-      /* History table — hide Dow and Mag7 on tablet */
+      .signal-footer { padding: 14px 20px; gap: 8px; }
       .col-hide-mobile { display: none; }
       .history-table th, .history-table td { padding: 12px 14px; }
-      .history-section { margin-top: 36px; }
-      .history-table { font-size: 13px; }
+      .explainer { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
+      .cftc-card { padding: 24px 20px; }
     }
     @media (max-width: 480px) {
       .page-header { padding: 16px 16px 0; }
@@ -346,24 +151,19 @@
       .bar-row { grid-template-columns: 60px 1fr 80px; gap: 8px; }
       .bar-label { font-size: 12px; }
       .bar-value { font-size: 11px; }
-      .section-header { flex-direction: column; align-items: flex-start; gap: 4px; }
-      .chart-section { padding: 16px 12px; }
-      .history-table th, .history-table td { padding: 10px 10px; font-size: 12px; }
       .explainer { padding: 20px 16px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- TICKER -->
   <div class="ticker-wrap">
     <div class="ticker-track">
-      <div class="ticker-item">⚡ MOC Imbalance S&P -1,144 mln <span>|</span> Nasdaq -1,717 mln <span>|</span> Dow -62 mln <span>|</span> Mag7 -636 mln <span>|</span> Heavy sell pressure into close <span>|</span> Follow @InstantNews73</div>
-      <div class="ticker-item">⚡ MOC Imbalance S&P -1,144 mln <span>|</span> Nasdaq -1,717 mln <span>|</span> Dow -62 mln <span>|</span> Mag7 -636 mln <span>|</span> Heavy sell pressure into close <span>|</span> Follow @InstantNews73</div>
+      <div class="ticker-item" id="ticker1">⚡ MOO & MOC Imbalance Data <span>|</span> AI-Powered Analysis <span>|</span> Follow @InstantNews73</div>
+      <div class="ticker-item" id="ticker2">⚡ MOO & MOC Imbalance Data <span>|</span> AI-Powered Analysis <span>|</span> Follow @InstantNews73</div>
     </div>
   </div>
 
-  <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
     <button class="mobile-menu-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
     <a href="index.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">Home</a>
@@ -373,7 +173,6 @@
     <a href="https://x.com/InstantNews73" target="_blank" class="mobile-cta">Follow on X</a>
   </div>
 
-  <!-- NAV -->
   <nav>
     <a href="/" class="logo">
       <div class="logo-icon">⚡</div>
@@ -391,7 +190,6 @@
     </div>
   </nav>
 
-  <!-- PAGE HEADER -->
   <div class="page-header">
     <div class="page-header-top">
       <div>
@@ -400,307 +198,59 @@
       </div>
       <div style="text-align:right">
         <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gray);letter-spacing:0.08em;text-transform:uppercase">Last updated</div>
-        <div style="font-family:'DM Mono',monospace;font-size:13px;color:var(--white);margin-top:4px">21:50 · May 15, 2026</div>
+        <div style="font-family:'DM Mono',monospace;font-size:13px;color:var(--white);margin-top:4px" id="last-updated-val">—</div>
       </div>
     </div>
     <div class="page-tabs">
-      <a href="#" class="tab active">Today</a>
-      <a href="#" class="tab">This Week</a>
-      <a href="#" class="tab">History</a>
-      <a href="#" class="tab">CFTC</a>
+      <a href="moo-moc-demo.html" class="tab" id="tab-today">Today</a>
+      <a href="moo-moc-demo.html?view=week" class="tab" id="tab-week">This Week</a>
+      <a href="moo-moc-demo.html?view=history" class="tab" id="tab-history">History</a>
+      <a href="moo-moc-demo.html?view=cftc" class="tab" id="tab-cftc">CFTC</a>
     </div>
   </div>
 
-  <!-- MAIN -->
   <div class="main">
 
-    <!-- TODAY'S IMBALANCES -->
-    <div class="section-header">
-      <div class="section-label">// Today's Imbalances · May 15, 2026</div>
-      <div class="section-date">2 readings today</div>
-    </div>
-
-    <div class="imbalance-grid">
-
-      <!-- MOC -->
-      <div class="imbalance-card">
-        <div class="imbalance-card-header">
-          <div class="imbalance-type">
-            <div class="imbalance-badge badge-moc">MOC</div>
-            <div style="font-size:13px;color:var(--gray)">Market on Close</div>
-          </div>
-          <div class="imbalance-time">21:50 · May 15</div>
-        </div>
-
-        <div class="imbalance-bars">
-          <div class="bar-row">
-            <div class="bar-label">S&P 500</div>
-            <div class="bar-track">
-              <div class="bar-fill negative" style="width:67%"></div>
-            </div>
-            <div class="bar-value negative">-1,144 mln</div>
-          </div>
-          <div class="bar-row">
-            <div class="bar-label">Nasdaq</div>
-            <div class="bar-track">
-              <div class="bar-fill negative" style="width:100%"></div>
-            </div>
-            <div class="bar-value negative">-1,717 mln</div>
-          </div>
-          <div class="bar-row">
-            <div class="bar-label">Dow 30</div>
-            <div class="bar-track">
-              <div class="bar-fill negative" style="width:4%"></div>
-            </div>
-            <div class="bar-value negative">-62 mln</div>
-          </div>
-          <div class="bar-row">
-            <div class="bar-label">Mag 7</div>
-            <div class="bar-track">
-              <div class="bar-fill negative" style="width:37%"></div>
-            </div>
-            <div class="bar-value negative">-636 mln</div>
-          </div>
-        </div>
-
-        <div class="claude-analysis">
-          <div class="claude-header">
-            <div class="claude-icon">✦</div>
-            <div class="claude-label">Claude Analysis <span>· AI-generated</span></div>
-          </div>
-          <div class="claude-text">
-            <strong>Heavy institutional sell pressure into close.</strong> The -$1.717B Nasdaq imbalance is particularly significant — nearly 3x the S&P imbalance in dollar terms, confirming tech-led selling. Mag7 at -$636M suggests rotation out of mega-cap tech. Dow's minimal -$62M imbalance indicates value stocks are relatively resilient. Expect a weak close with tech underperforming.
-          </div>
-        </div>
-
-        <div class="signal-footer">
-          <div class="signal bearish"><div class="signal-dot"></div>Bearish Close</div>
-          <div class="signal bearish"><div class="signal-dot"></div>Tech-led Selling</div>
-          <div class="signal-markets">
-            <div class="market-tag">$SPY</div>
-            <div class="market-tag">$QQQ</div>
-            <div class="market-tag">$AAPL</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- MOO -->
-      <div class="imbalance-card">
-        <div class="imbalance-card-header">
-          <div class="imbalance-type">
-            <div class="imbalance-badge badge-moo">MOO</div>
-            <div style="font-size:13px;color:var(--gray)">Market on Open</div>
-          </div>
-          <div class="imbalance-time">15:30 · May 15</div>
-        </div>
-
-        <div class="imbalance-bars">
-          <div class="bar-row">
-            <div class="bar-label">S&P 500</div>
-            <div class="bar-track">
-              <div class="bar-fill positive" style="width:63%"></div>
-            </div>
-            <div class="bar-value positive">+188 mln</div>
-          </div>
-          <div class="bar-row">
-            <div class="bar-label">Nasdaq</div>
-            <div class="bar-track">
-              <div class="bar-fill positive" style="width:100%"></div>
-            </div>
-            <div class="bar-value positive">+297 mln</div>
-          </div>
-          <div class="bar-row">
-            <div class="bar-label">Dow 30</div>
-            <div class="bar-track">
-              <div class="bar-fill positive" style="width:26%"></div>
-            </div>
-            <div class="bar-value positive">+76 mln</div>
-          </div>
-          <div class="bar-row">
-            <div class="bar-label">Mag 7</div>
-            <div class="bar-track">
-              <div class="bar-fill positive" style="width:62%"></div>
-            </div>
-            <div class="bar-value positive">+186 mln</div>
-          </div>
-        </div>
-
-        <div class="claude-analysis">
-          <div class="claude-header">
-            <div class="claude-icon">✦</div>
-            <div class="claude-label">Claude Analysis <span>· AI-generated</span></div>
-          </div>
-          <div class="claude-text">
-            <strong>Broad buy imbalance signals institutional accumulation at open.</strong> Nasdaq leading at +$297M with Mag7 contributing +$186M suggests tech-focused buying. The broad participation across all indices — S&P, Nasdaq, Dow and Mag7 all positive — indicates genuine risk-on sentiment rather than sector rotation. Expect a gap-up open with tech outperforming.
-          </div>
-        </div>
-
-        <div class="signal-footer">
-          <div class="signal bullish"><div class="signal-dot"></div>Bullish Open</div>
-          <div class="signal bullish"><div class="signal-dot"></div>Risk-On</div>
-          <div class="signal-markets">
-            <div class="market-tag">$SPY</div>
-            <div class="market-tag">$QQQ</div>
-            <div class="market-tag">$NVDA</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- CHART -->
-    <div class="chart-section">
-      <div class="chart-header">
-        <div class="chart-title">Imbalance History — Last 7 Days</div>
-        <div class="chart-legend">
-          <div class="legend-item"><div class="legend-dot sp"></div>S&P 500</div>
-          <div class="legend-item"><div class="legend-dot nq"></div>Nasdaq</div>
-          <div class="legend-item"><div class="legend-dot dj"></div>Dow 30</div>
-        </div>
-      </div>
-
-      <svg class="chart-svg" viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="spGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
-          </linearGradient>
-          <linearGradient id="nqGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-
-        <!-- Grid lines -->
-        <line x1="0" y1="110" x2="900" y2="110" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-        <line x1="0" y1="55" x2="900" y2="55" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="4,4"/>
-        <line x1="0" y1="165" x2="900" y2="165" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="4,4"/>
-
-        <!-- Zero line label -->
-        <text x="8" y="107" fill="rgba(255,255,255,0.3)" font-family="monospace" font-size="9">0</text>
-        <text x="8" y="52" fill="rgba(255,255,255,0.2)" font-family="monospace" font-size="9">+500</text>
-        <text x="8" y="162" fill="rgba(255,255,255,0.2)" font-family="monospace" font-size="9">-500</text>
-
-        <!-- Day labels -->
-        <text x="100" y="210" fill="#555" font-family="monospace" font-size="10" text-anchor="middle">May 9</text>
-        <text x="230" y="210" fill="#555" font-family="monospace" font-size="10" text-anchor="middle">May 10</text>
-        <text x="360" y="210" fill="#555" font-family="monospace" font-size="10" text-anchor="middle">May 12</text>
-        <text x="490" y="210" fill="#555" font-family="monospace" font-size="10" text-anchor="middle">May 13</text>
-        <text x="620" y="210" fill="#555" font-family="monospace" font-size="10" text-anchor="middle">May 14</text>
-        <text x="750" y="210" fill="#ff5c5c" font-family="monospace" font-size="10" text-anchor="middle" font-weight="bold">May 15 ●</text>
-
-        <!-- S&P 500 line (blue) -->
-        <polyline
-          points="100,90 230,75 360,100 490,85 620,95 750,166"
-          fill="none" stroke="#3b82f6" stroke-width="2" stroke-linejoin="round"/>
-        <circle cx="100" cy="90" r="3" fill="#3b82f6"/>
-        <circle cx="230" cy="75" r="3" fill="#3b82f6"/>
-        <circle cx="360" cy="100" r="3" fill="#3b82f6"/>
-        <circle cx="490" cy="85" r="3" fill="#3b82f6"/>
-        <circle cx="620" cy="95" r="3" fill="#3b82f6"/>
-        <circle cx="750" cy="166" r="5" fill="#3b82f6" stroke="#0a0a0b" stroke-width="2"/>
-
-        <!-- Nasdaq line (purple) -->
-        <polyline
-          points="100,80 230,60 360,95 490,70 620,88 750,188"
-          fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linejoin="round"/>
-        <circle cx="100" cy="80" r="3" fill="#8b5cf6"/>
-        <circle cx="230" cy="60" r="3" fill="#8b5cf6"/>
-        <circle cx="360" cy="95" r="3" fill="#8b5cf6"/>
-        <circle cx="490" cy="70" r="3" fill="#8b5cf6"/>
-        <circle cx="620" cy="88" r="3" fill="#8b5cf6"/>
-        <circle cx="750" cy="188" r="5" fill="#8b5cf6" stroke="#0a0a0b" stroke-width="2"/>
-
-        <!-- Dow line (amber) -->
-        <polyline
-          points="100,105 230,108 360,102 490,107 620,109 750,115"
-          fill="none" stroke="#ffb800" stroke-width="2" stroke-linejoin="round"/>
-        <circle cx="100" cy="105" r="3" fill="#ffb800"/>
-        <circle cx="230" cy="108" r="3" fill="#ffb800"/>
-        <circle cx="360" cy="102" r="3" fill="#ffb800"/>
-        <circle cx="490" cy="107" r="3" fill="#ffb800"/>
-        <circle cx="620" cy="109" r="3" fill="#ffb800"/>
-        <circle cx="750" cy="115" r="5" fill="#ffb800" stroke="#0a0a0b" stroke-width="2"/>
-
-        <!-- Today annotation -->
-        <line x1="750" y1="20" x2="750" y2="195" stroke="rgba(255,92,92,0.2)" stroke-width="1" stroke-dasharray="3,3"/>
-        <text x="762" y="32" fill="#ff5c5c" font-family="monospace" font-size="9">TODAY</text>
-
-      </svg>
-    </div>
-
-    <!-- HISTORY TABLE -->
-    <div class="history-section">
+    <!-- TODAY -->
+    <div class="tab-panel" id="panel-today">
       <div class="section-header">
-        <div class="section-label">// Recent History</div>
+        <div class="section-label" id="today-label">// Today's Imbalances</div>
+        <div class="section-date" id="today-count"></div>
       </div>
-      <table class="history-table">
-        <thead>
-          <tr>
-            <th>Date & Time</th>
-            <th>Type</th>
-            <th>S&P 500</th>
-            <th>Nasdaq 100</th>
-            <th class="col-hide-mobile">Dow 30</th>
-            <th class="col-hide-mobile">Mag 7</th>
-            <th>Signal</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--gray)">May 15 · 21:50</td>
-            <td><span class="type-badge type-moc">MOC</span></td>
-            <td class="td-mono td-negative">-1,144 mln</td>
-            <td class="td-mono td-negative">-1,717 mln</td>
-            <td class="td-mono td-negative col-hide-mobile">-62 mln</td>
-            <td class="td-mono td-negative col-hide-mobile">-636 mln</td>
-            <td><span style="color:var(--red2);font-size:13px;">🔴 Bearish</span></td>
-          </tr>
-          <tr>
-            <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--gray)">May 15 · 15:30</td>
-            <td><span class="type-badge type-moo">MOO</span></td>
-            <td class="td-mono td-positive">+188 mln</td>
-            <td class="td-mono td-positive">+297 mln</td>
-            <td class="td-mono td-positive col-hide-mobile">+76 mln</td>
-            <td class="td-mono td-positive col-hide-mobile">+186 mln</td>
-            <td><span style="color:var(--green2);font-size:13px;">🟢 Bullish</span></td>
-          </tr>
-          <tr>
-            <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--gray)">May 14 · 21:45</td>
-            <td><span class="type-badge type-moc">MOC</span></td>
-            <td class="td-mono td-positive">+320 mln</td>
-            <td class="td-mono td-positive">+580 mln</td>
-            <td class="td-mono td-negative col-hide-mobile">-45 mln</td>
-            <td class="td-mono td-positive col-hide-mobile">+290 mln</td>
-            <td><span style="color:var(--green2);font-size:13px;">🟢 Bullish</span></td>
-          </tr>
-          <tr>
-            <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--gray)">May 14 · 15:30</td>
-            <td><span class="type-badge type-moo">MOO</span></td>
-            <td class="td-mono td-negative">-210 mln</td>
-            <td class="td-mono td-negative">-380 mln</td>
-            <td class="td-mono td-positive col-hide-mobile">+90 mln</td>
-            <td class="td-mono td-negative col-hide-mobile">-175 mln</td>
-            <td><span style="color:var(--red2);font-size:13px;">🔴 Bearish</span></td>
-          </tr>
-          <tr>
-            <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--gray)">May 13 · 21:50</td>
-            <td><span class="type-badge type-moc">MOC</span></td>
-            <td class="td-mono td-neutral">+45 mln</td>
-            <td class="td-mono td-positive">+120 mln</td>
-            <td class="td-mono td-negative col-hide-mobile">-30 mln</td>
-            <td class="td-mono td-positive col-hide-mobile">+88 mln</td>
-            <td><span style="color:var(--amber);font-size:13px;">🟡 Neutral</span></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="imbalance-grid" id="today-grid">
+        <div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">⏳</div><p>Loading...</p></div>
+      </div>
+    </div>
+
+    <!-- THIS WEEK -->
+    <div class="tab-panel" id="panel-week">
+      <div class="section-header">
+        <div class="section-label">// This Week's Imbalances</div>
+      </div>
+      <div id="week-table-wrap"><div class="empty-state"><div class="empty-icon">⏳</div><p>Loading...</p></div></div>
+    </div>
+
+    <!-- HISTORY -->
+    <div class="tab-panel" id="panel-history">
+      <div class="section-header">
+        <div class="section-label">// Full History</div>
+      </div>
+      <div id="history-table-wrap"><div class="empty-state"><div class="empty-icon">⏳</div><p>Loading...</p></div></div>
+    </div>
+
+    <!-- CFTC -->
+    <div class="tab-panel" id="panel-cftc">
+      <div class="section-header">
+        <div class="section-label">// CFTC Positioning Data</div>
+      </div>
+      <div id="cftc-wrap"><div class="empty-state"><div class="empty-icon">⏳</div><p>Loading...</p></div></div>
     </div>
 
     <!-- EXPLAINER -->
     <div class="explainer">
       <div>
         <h3>What is MOO Imbalance?</h3>
-        <p>Market-on-Open (MOO) imbalances represent the net difference between buy and sell orders queued for execution at market open. Large positive imbalances signal institutional buying pressure at the open.</p>
+        <p>Market-on-Open (MOO) imbalances represent the net difference between buy and sell orders queued for execution at market open.</p>
         <ul>
           <li>Published ~15 minutes before market open</li>
           <li>Positive = more buy orders than sell orders</li>
@@ -710,7 +260,7 @@
       </div>
       <div>
         <h3>What is MOC Imbalance?</h3>
-        <p>Market-on-Close (MOC) imbalances show institutional order flow heading into the closing auction. These are often the most significant as index funds and ETFs rebalance at close.</p>
+        <p>Market-on-Close (MOC) imbalances show institutional order flow heading into the closing auction.</p>
         <ul>
           <li>Published ~30 minutes before market close</li>
           <li>Negative = heavy sell pressure into close</li>
@@ -721,6 +271,167 @@
     </div>
 
   </div>
+
+  <script>
+    const BASE = 'https://instantnews-api-production.up.railway.app';
+    const params = new URLSearchParams(window.location.search);
+    const view = params.get('view') || 'today';
+
+    // Activate tab + panel
+    document.getElementById('tab-' + view).classList.add('active');
+    document.getElementById('panel-' + view).classList.add('active');
+
+    function fmt(iso) {
+      const d = new Date(iso);
+      const hh = d.getHours().toString().padStart(2,'0');
+      const mm = d.getMinutes().toString().padStart(2,'0');
+      const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return hh + ':' + mm + ' · ' + mo[d.getMonth()] + ' ' + d.getDate();
+    }
+
+    function fmtMln(val) {
+      const n = parseInt(val);
+      if (isNaN(n)) return '—';
+      const sign = n >= 0 ? '+' : '';
+      return sign + Math.round(n/1).toLocaleString() + ' mln';
+    }
+
+    function getSignal(item) {
+      const sp = parseInt(item.sp500)||0, nq = parseInt(item.nasdaq)||0;
+      const sum = sp + nq;
+      if (sum > 100) return {cls:'bullish', label: item.type==='MOO' ? 'Bullish Open' : 'Bullish Close'};
+      if (sum < -100) return {cls:'bearish', label: item.type==='MOC' ? 'Bearish Close' : 'Bearish Open'};
+      return {cls:'neutral', label:'Neutral'};
+    }
+
+    function renderCard(item) {
+      const isMOO = item.type === 'MOO';
+      const fields = [['S&P 500', item.sp500], ['Nasdaq', item.nasdaq], ['Dow 30', item.dow30], ['Mag 7', item.mag7]];
+      const maxAbs = Math.max(...fields.map(f => Math.abs(parseInt(f[1])||0)), 1);
+      const sig = getSignal(item);
+
+      const bars = fields.map(([lbl, val]) => {
+        const n = parseInt(val)||0;
+        const cls = n >= 0 ? 'positive' : 'negative';
+        const pct = Math.min(100, Math.abs(n) / maxAbs * 100);
+        return '<div class="bar-row"><div class="bar-label">' + lbl + '</div>' +
+          '<div class="bar-track"><div class="bar-fill ' + cls + '" style="width:' + pct + '%"></div></div>' +
+          '<div class="bar-value ' + cls + '">' + fmtMln(val) + '</div></div>';
+      }).join('');
+
+      const analysis = item.claude_analysis
+        ? '<div class="claude-analysis"><div class="claude-header"><div class="claude-icon">✦</div>' +
+          '<div class="claude-label">Claude Analysis <span>· AI-generated</span></div></div>' +
+          '<div class="claude-text">' + item.claude_analysis + '</div></div>'
+        : '';
+
+      return '<div class="imbalance-card">' +
+        '<div class="imbalance-card-header"><div class="imbalance-type">' +
+        '<div class="imbalance-badge badge-' + item.type.toLowerCase() + '">' + item.type + '</div>' +
+        '<div style="font-size:13px;color:var(--gray)">' + (isMOO ? 'Market on Open' : 'Market on Close') + '</div>' +
+        '</div><div class="imbalance-time">' + fmt(item.created_at) + '</div></div>' +
+        '<div class="imbalance-bars">' + bars + '</div>' +
+        analysis +
+        '<div class="signal-footer"><div class="signal ' + sig.cls + '"><div class="signal-dot"></div>' + sig.label + '</div></div>' +
+        '</div>';
+    }
+
+    function renderTable(items) {
+      if (!items.length) return '<div class="empty-state"><div class="empty-icon">📭</div><p>No data available yet.</p></div>';
+      const rows = items.map(item => {
+        const sp = parseInt(item.sp500)||0, nq = parseInt(item.nasdaq)||0;
+        const dow = parseInt(item.dow30)||0, mag = parseInt(item.mag7)||0;
+        const sum = sp + nq;
+        const sigLabel = sum > 100 ? '🟢 Bullish' : sum < -100 ? '🔴 Bearish' : '🟡 Neutral';
+        const sigColor = sum > 100 ? 'var(--green2)' : sum < -100 ? 'var(--red2)' : 'var(--amber)';
+        const cls = v => v >= 0 ? 'td-positive' : 'td-negative';
+        return '<tr>' +
+          '<td style="font-family:\'DM Mono\',monospace;font-size:12px;color:var(--gray)">' + fmt(item.created_at) + '</td>' +
+          '<td><span class="type-badge type-' + item.type.toLowerCase() + '">' + item.type + '</span></td>' +
+          '<td class="td-mono ' + cls(sp) + '">' + fmtMln(item.sp500) + '</td>' +
+          '<td class="td-mono ' + cls(nq) + '">' + fmtMln(item.nasdaq) + '</td>' +
+          '<td class="td-mono ' + cls(dow) + ' col-hide-mobile">' + fmtMln(item.dow30) + '</td>' +
+          '<td class="td-mono ' + cls(mag) + ' col-hide-mobile">' + fmtMln(item.mag7) + '</td>' +
+          '<td><span style="color:' + sigColor + ';font-size:13px;">' + sigLabel + '</span></td>' +
+          '</tr>';
+      }).join('');
+      return '<table class="history-table"><thead><tr>' +
+        '<th>Date & Time</th><th>Type</th><th>S&P 500</th><th>Nasdaq 100</th>' +
+        '<th class="col-hide-mobile">Dow 30</th><th class="col-hide-mobile">Mag 7</th><th>Signal</th>' +
+        '</tr></thead><tbody>' + rows + '</tbody></table>';
+    }
+
+    async function loadToday() {
+      try {
+        const res = await fetch(BASE + '/api/imbalances/today');
+        const json = await res.json();
+        const items = json.data || [];
+        const now = new Date();
+        const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        document.getElementById('today-label').textContent = '// Today\'s Imbalances · ' + mo[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+        document.getElementById('today-count').textContent = items.length ? items.length + ' reading' + (items.length > 1 ? 's' : '') + ' today' : '';
+        if (!items.length) {
+          document.getElementById('today-grid').innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">📭</div><p>No imbalance data for today yet.<br>MOO data arrives before market open, MOC before close.</p></div>';
+          return;
+        }
+        document.getElementById('today-grid').innerHTML = items.map(renderCard).join('');
+        if (items[0]) document.getElementById('last-updated-val').textContent = fmt(items[0].created_at);
+        const tickerText = items.map(i => i.type + ' S&P ' + fmtMln(i.sp500) + ' | Nasdaq ' + fmtMln(i.nasdaq)).join(' <span>|</span> ');
+        ['ticker1','ticker2'].forEach(id => {
+          document.getElementById(id).innerHTML = '⚡ ' + tickerText + ' <span>|</span> Follow @InstantNews73';
+        });
+      } catch(e) {
+        document.getElementById('today-grid').innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">⚠️</div><p>Could not load data.</p></div>';
+      }
+    }
+
+    async function loadWeek() {
+      try {
+        const res = await fetch(BASE + '/api/imbalances?limit=14');
+        const json = await res.json();
+        document.getElementById('week-table-wrap').innerHTML = renderTable(json.data || []);
+      } catch(e) {
+        document.getElementById('week-table-wrap').innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><p>Could not load data.</p></div>';
+      }
+    }
+
+    async function loadHistory() {
+      try {
+        const res = await fetch(BASE + '/api/imbalances?limit=100');
+        const json = await res.json();
+        document.getElementById('history-table-wrap').innerHTML = renderTable(json.data || []);
+      } catch(e) {
+        document.getElementById('history-table-wrap').innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><p>Could not load data.</p></div>';
+      }
+    }
+
+    async function loadCFTC() {
+      try {
+        const res = await fetch(BASE + '/api/cftc?limit=4');
+        const json = await res.json();
+        const items = json.data || [];
+        const el = document.getElementById('cftc-wrap');
+        if (!items.length) {
+          el.innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><p>No CFTC data yet.<br>CFTC positioning data arrives every Friday.</p></div>';
+          return;
+        }
+        const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        el.innerHTML = items.map(item => {
+          const d = new Date(item.created_at);
+          const weekLabel = item.week_ending || ('Week of ' + mo[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear());
+          return '<div class="cftc-card"><div class="cftc-week">📊 ' + weekLabel + '</div>' +
+            '<div class="cftc-analysis">' + (item.claude_analysis || 'No analysis available.') + '</div></div>';
+        }).join('');
+      } catch(e) {
+        document.getElementById('cftc-wrap').innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><p>Could not load CFTC data.</p></div>';
+      }
+    }
+
+    if (view === 'today') { loadToday(); setInterval(loadToday, 60000); }
+    if (view === 'week') loadWeek();
+    if (view === 'history') loadHistory();
+    if (view === 'cftc') loadCFTC();
+  </script>
 
 </body>
 </html>
