@@ -389,8 +389,15 @@
         const digests = json.data || [];
 
         if (!digests.length) {
-          // Žiadny digest v DB ešte — skryj sekciu
-          document.getElementById('digest-section').style.display = 'none';
+          // Placeholder kým digest nepríde o 22:00
+          const now = new Date();
+          const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+          document.getElementById('digest-date').textContent = `${mo[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()} · 22:00`;
+          document.getElementById('digest-items').innerHTML = `
+            <div style="text-align:center;padding:20px 0;color:var(--gray);">
+              <div style="font-size:28px;margin-bottom:12px;">🕙</div>
+              <div style="font-size:13px;line-height:1.6;">Today's daily digest will appear here at <strong style="color:var(--white);">22:00</strong>.<br>Our AI summarizes the 3 most important stories of the day.</div>
+            </div>`;
           return;
         }
 
