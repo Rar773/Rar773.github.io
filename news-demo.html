@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -283,14 +284,80 @@
     }
     .tag:hover { color: var(--white); border-color: rgba(255,255,255,0.2); }
 
+    /* HAMBURGER */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      width: 24px; height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10,10,11,0.98);
+      z-index: 200;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--white); text-decoration: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px; letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--red); }
+    .mobile-menu-close {
+      position: absolute; top: 24px; right: 24px;
+      font-size: 32px; color: var(--white);
+      cursor: pointer; background: none; border: none;
+    }
+    .mobile-cta {
+      background: var(--red) !important;
+      color: #fff !important;
+      padding: 14px 32px !important;
+      border-radius: 8px !important;
+      font-size: 20px !important;
+    }
+
     @media (max-width: 900px) {
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
-      .page-header { padding: 40px 20px 0; }
+      .hamburger { display: flex; }
+      .page-header { padding: 28px 20px 0; }
+      .page-header-top { flex-direction: column; align-items: flex-start; gap: 8px; padding-bottom: 16px; }
+      .page-title { font-size: 36px; }
+      .page-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+      .page-tabs::-webkit-scrollbar { display: none; }
+      .tab { padding: 10px 16px; font-size: 13px; white-space: nowrap; }
       .main-layout { grid-template-columns: 1fr; padding: 0 20px; }
-      .content-area { padding: 32px 0; border-right: none; }
-      .sidebar { padding: 0 0 40px; border-top: 1px solid var(--border); }
-      .alert-banner { padding: 12px 20px; }
+      .content-area { padding: 28px 0; border-right: none; border-bottom: 1px solid var(--border); }
+      .sidebar { padding: 28px 0 40px; }
+      .alert-banner { padding: 10px 20px; flex-wrap: wrap; gap: 8px; }
+      .alert-banner-time { margin-left: 0; width: 100%; }
+      .article-title { font-size: 26px; }
+      .news-item { grid-template-columns: 1fr; }
+      .news-item-number { display: none; }
+    }
+    @media (max-width: 480px) {
+      .page-header { padding: 20px 16px 0; }
+      .main-layout { padding: 0 16px; }
+      .article-title { font-size: 22px; }
+      .digest-card { padding: 20px 16px; }
+      .digest-label { font-size: 15px; }
+      .featured-article { margin-bottom: 36px; padding-bottom: 36px; }
+      .tags { gap: 6px; }
+      .tag { font-size: 11px; padding: 3px 10px; }
     }
   </style>
 </head>
@@ -311,6 +378,16 @@
     <div class="alert-banner-time">23:02 · May 15, 2026</div>
   </div>
 
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
+    <a href="index.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">Home</a>
+    <a href="news-demo.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">News</a>
+    <a href="moo-moc-demo.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">Markets</a>
+    <a href="index.html#faq" onclick="document.getElementById('mobileMenu').classList.remove('open')">About</a>
+    <a href="https://x.com/InstantNews73" target="_blank" class="mobile-cta">Follow on X</a>
+  </div>
+
   <!-- NAV -->
   <nav>
     <a href="/" class="logo">
@@ -318,13 +395,15 @@
       <div class="logo-text">Instant<span>News</span></div>
     </a>
     <ul class="nav-links">
-    <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="news-demo.html" class="active">News</a></li>
       <li><a href="moo-moc-demo.html">Markets</a></li>
       <li><a href="index.html#faq">About</a></li>
       <li><a href="https://x.com/InstantNews73" target="_blank" class="nav-cta">Follow on X</a></li>
     </ul>
+    <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">
+      <span></span><span></span><span></span>
+    </div>
   </nav>
 
   <!-- PAGE HEADER -->
