@@ -268,13 +268,88 @@
     .explainer li { font-size: 13px; color: var(--gray); display: flex; gap: 8px; }
     .explainer li::before { content: '→'; color: var(--red); flex-shrink: 0; }
 
+    /* HAMBURGER */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10,10,11,0.98);
+      z-index: 200;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--white); text-decoration: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px; letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--red); }
+    .mobile-menu-close {
+      position: absolute; top: 24px; right: 24px;
+      font-size: 32px; color: var(--white);
+      cursor: pointer; background: none; border: none;
+    }
+    .mobile-cta {
+      background: var(--red) !important;
+      color: #fff !important;
+      padding: 14px 32px !important;
+      border-radius: 8px !important;
+      font-size: 20px !important;
+    }
+
+    /* Mobile table — hide less important columns */
+    .col-hide-mobile { }
+
     @media (max-width: 900px) {
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
-      .page-header { padding: 32px 20px 0; }
-      .main { padding: 32px 20px 60px; }
+      .hamburger { display: flex; }
+      .page-header { padding: 24px 20px 0; }
+      .page-header-top { flex-direction: column; align-items: flex-start; gap: 8px; padding-bottom: 16px; }
+      .page-title { font-size: 36px; }
+      .page-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+      .page-tabs::-webkit-scrollbar { display: none; }
+      .tab { padding: 10px 16px; font-size: 13px; white-space: nowrap; }
+      .main { padding: 24px 20px 60px; }
       .imbalance-grid { grid-template-columns: 1fr; }
-      .explainer { grid-template-columns: 1fr; }
+      .bar-row { grid-template-columns: 70px 1fr 90px; gap: 10px; }
+      .imbalance-bars { padding: 20px; }
+      .imbalance-card-header { padding: 18px 20px 14px; }
+      .claude-analysis { margin: 0 20px 20px; }
+      .signal-footer { flex-wrap: wrap; padding: 14px 20px; gap: 8px; }
+      .signal-markets { margin-left: 0; }
+      .chart-section { padding: 20px 16px; }
+      .chart-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .chart-legend { flex-wrap: wrap; gap: 12px; }
+      .explainer { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
+      /* History table — hide Dow and Mag7 on tablet */
+      .col-hide-mobile { display: none; }
+      .history-table th, .history-table td { padding: 12px 14px; }
+      .history-section { margin-top: 36px; }
+      .history-table { font-size: 13px; }
+    }
+    @media (max-width: 480px) {
+      .page-header { padding: 16px 16px 0; }
+      .main { padding: 20px 16px 48px; }
+      .bar-row { grid-template-columns: 60px 1fr 80px; gap: 8px; }
+      .bar-label { font-size: 12px; }
+      .bar-value { font-size: 11px; }
+      .section-header { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .chart-section { padding: 16px 12px; }
+      .history-table th, .history-table td { padding: 10px 10px; font-size: 12px; }
+      .explainer { padding: 20px 16px; }
     }
   </style>
 </head>
@@ -288,6 +363,16 @@
     </div>
   </div>
 
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
+    <a href="index.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">Home</a>
+    <a href="news-demo.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">News</a>
+    <a href="moo-moc-demo.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">Markets</a>
+    <a href="index.html#faq" onclick="document.getElementById('mobileMenu').classList.remove('open')">About</a>
+    <a href="https://x.com/InstantNews73" target="_blank" class="mobile-cta">Follow on X</a>
+  </div>
+
   <!-- NAV -->
   <nav>
     <a href="/" class="logo">
@@ -295,13 +380,15 @@
       <div class="logo-text">Instant<span>News</span></div>
     </a>
     <ul class="nav-links">
-    <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="news-demo.html">News</a></li>
       <li><a href="moo-moc-demo.html" class="active">Markets</a></li>
       <li><a href="index.html#faq">About</a></li>
       <li><a href="https://x.com/InstantNews73" target="_blank" class="nav-cta">Follow on X</a></li>
     </ul>
+    <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">
+      <span></span><span></span><span></span>
+    </div>
   </nav>
 
   <!-- PAGE HEADER -->
@@ -554,8 +641,8 @@
             <th>Type</th>
             <th>S&P 500</th>
             <th>Nasdaq 100</th>
-            <th>Dow 30</th>
-            <th>Mag 7</th>
+            <th class="col-hide-mobile">Dow 30</th>
+            <th class="col-hide-mobile">Mag 7</th>
             <th>Signal</th>
           </tr>
         </thead>
@@ -565,8 +652,8 @@
             <td><span class="type-badge type-moc">MOC</span></td>
             <td class="td-mono td-negative">-1,144 mln</td>
             <td class="td-mono td-negative">-1,717 mln</td>
-            <td class="td-mono td-negative">-62 mln</td>
-            <td class="td-mono td-negative">-636 mln</td>
+            <td class="td-mono td-negative col-hide-mobile">-62 mln</td>
+            <td class="td-mono td-negative col-hide-mobile">-636 mln</td>
             <td><span style="color:var(--red2);font-size:13px;">🔴 Bearish</span></td>
           </tr>
           <tr>
@@ -574,8 +661,8 @@
             <td><span class="type-badge type-moo">MOO</span></td>
             <td class="td-mono td-positive">+188 mln</td>
             <td class="td-mono td-positive">+297 mln</td>
-            <td class="td-mono td-positive">+76 mln</td>
-            <td class="td-mono td-positive">+186 mln</td>
+            <td class="td-mono td-positive col-hide-mobile">+76 mln</td>
+            <td class="td-mono td-positive col-hide-mobile">+186 mln</td>
             <td><span style="color:var(--green2);font-size:13px;">🟢 Bullish</span></td>
           </tr>
           <tr>
@@ -583,8 +670,8 @@
             <td><span class="type-badge type-moc">MOC</span></td>
             <td class="td-mono td-positive">+320 mln</td>
             <td class="td-mono td-positive">+580 mln</td>
-            <td class="td-mono td-negative">-45 mln</td>
-            <td class="td-mono td-positive">+290 mln</td>
+            <td class="td-mono td-negative col-hide-mobile">-45 mln</td>
+            <td class="td-mono td-positive col-hide-mobile">+290 mln</td>
             <td><span style="color:var(--green2);font-size:13px;">🟢 Bullish</span></td>
           </tr>
           <tr>
@@ -592,8 +679,8 @@
             <td><span class="type-badge type-moo">MOO</span></td>
             <td class="td-mono td-negative">-210 mln</td>
             <td class="td-mono td-negative">-380 mln</td>
-            <td class="td-mono td-positive">+90 mln</td>
-            <td class="td-mono td-negative">-175 mln</td>
+            <td class="td-mono td-positive col-hide-mobile">+90 mln</td>
+            <td class="td-mono td-negative col-hide-mobile">-175 mln</td>
             <td><span style="color:var(--red2);font-size:13px;">🔴 Bearish</span></td>
           </tr>
           <tr>
@@ -601,8 +688,8 @@
             <td><span class="type-badge type-moc">MOC</span></td>
             <td class="td-mono td-neutral">+45 mln</td>
             <td class="td-mono td-positive">+120 mln</td>
-            <td class="td-mono td-negative">-30 mln</td>
-            <td class="td-mono td-positive">+88 mln</td>
+            <td class="td-mono td-negative col-hide-mobile">-30 mln</td>
+            <td class="td-mono td-positive col-hide-mobile">+88 mln</td>
             <td><span style="color:var(--amber);font-size:13px;">🟡 Neutral</span></td>
           </tr>
         </tbody>
