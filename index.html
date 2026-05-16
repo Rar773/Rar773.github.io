@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InstantNews — Fastest Breaking News</title>
+  <meta name="description" content="Real-time breaking financial and geopolitical news, 24/7. Follow us on X and Telegram.">
+  <meta property="og:title" content="InstantNews — Fastest Breaking News">
+  <meta property="og:description" content="Real-time breaking financial and geopolitical news, 24/7.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@InstantNews73">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0b;
+      --bg2: #111113;
+      --bg3: #1a1a1e;
+      --red: #ff2d2d;
+      --red2: #ff5c5c;
+      --amber: #ffb800;
+      --white: #f0f0f0;
+      --gray: #888;
+      --border: rgba(255,255,255,0.07);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* TICKER TAPE */
+    .ticker-wrap {
+      background: var(--red);
+      padding: 8px 0;
+      overflow: hidden;
+      position: relative;
+      z-index: 100;
+    }
+    .ticker-track {
+      display: flex;
+      gap: 60px;
+      animation: ticker 30s linear infinite;
+      white-space: nowrap;
+    }
+    .ticker-item {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      color: #fff;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .ticker-item span { margin: 0 8px; opacity: 0.6; }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(10,10,11,0.95);
+      backdrop-filter: blur(20px);
+      z-index: 99;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--red);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .logo-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      color: var(--white);
+      letter-spacing: 0.05em;
+    }
+    .logo-text span { color: var(--red); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--red);
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 6px;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--red2) !important; color: #fff !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(255,45,45,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255,184,0,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content {
+      max-width: 720px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,45,45,0.1);
+      border: 1px solid rgba(255,45,45,0.3);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--red2);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(64px, 8vw, 110px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 28px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--red);
+      display: block;
+    }
+    .hero-desc {
+      font-size: 18px;
+      color: var(--gray);
+      max-width: 520px;
+      margin-bottom: 48px;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    .hero-desc strong { color: var(--white); font-weight: 500; }
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--red);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--red2); transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.2); background: var(--bg3); }
+    .btn svg { width: 18px; height: 18px; }
+
+    /* STATS */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .stat {
+      background: var(--bg);
+      padding: 48px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .stat:hover::before { opacity: 1; }
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .stat-number span { color: var(--red); }
+    .stat-label {
+      font-size: 13px;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 500;
+    }
+
+    /* FEATURES */
+    .section {
+      padding: 100px 60px;
+    }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--red);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 4vw, 56px);
+      line-height: 1.05;
+      margin-bottom: 60px;
+      letter-spacing: 0.02em;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .feature {
+      background: var(--bg2);
+      padding: 40px;
+      transition: background 0.2s;
+    }
+    .feature:hover { background: var(--bg3); }
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    .feature h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+      color: var(--white);
+    }
+    .feature p {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* FEED PREVIEW */
+    .feed-section {
+      padding: 100px 60px;
+      background: var(--bg2);
+    }
+    .feed-layout {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 60px;
+      margin-top: 60px;
+      align-items: start;
+    }
+    .feed-left { }
+    .feed-points {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .feed-point {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .feed-point-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(255,45,45,0.1);
+      border: 1px solid rgba(255,45,45,0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .feed-point-content h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+    .feed-point-content p {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+    .feed-right {
+      position: sticky;
+      top: 80px;
+    }
+    .feed-widget-wrap {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .feed-widget-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .feed-widget-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      animation: pulse 2s infinite;
+    }
+    .feed-widget-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+    }
+    .feed-widget-handle {
+      font-size: 12px;
+      color: var(--gray);
+      margin-left: auto;
+      font-family: 'DM Mono', monospace;
+    }
+    @media (max-width: 900px) {
+      .feed-layout { grid-template-columns: 1fr; }
+      .feed-right { position: static; }
+    }
+
+    /* FAQ */
+    .faq-list {
+      max-width: 720px;
+      margin-top: 60px;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 28px 0;
+    }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q {
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .faq-q::before {
+      content: 'Q';
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      color: var(--red);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .faq-a {
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.7;
+      padding-left: 30px;
+    }
+
+    /* CTA */
+    .cta-section {
+      padding: 100px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(255,45,45,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-section h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 6vw, 80px);
+      letter-spacing: 0.02em;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .cta-section p {
+      font-size: 17px;
+      color: var(--gray);
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: gap;
+    }
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy {
+      font-size: 13px;
+      color: var(--gray);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 60px 24px; }
+      .stats { grid-template-columns: 1fr; }
+      .stat { padding: 32px 24px; }
+      .section { padding: 60px 24px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .feed-section { padding: 60px 24px; }
+      .feed-grid { grid-template-columns: 1fr; }
+      .cta-section { padding: 60px 24px; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      footer { padding: 32px 24px; flex-direction: column; gap: 16px; text-align: center; }
+    }
+
+    /* ANIMATIONS */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s ease forwards;
+    }
+    .fade-in:nth-child(1) { animation-delay: 0.1s; }
+    .fade-in:nth-child(2) { animation-delay: 0.2s; }
+    .fade-in:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker-track">
+      <div class="ticker-item">⚡ Breaking News 24/7 <span>|</span> Real-time Market Updates <span>|</span> Fed Decisions <span>|</span> Geopolitical Events <span>|</span> Economic Data <span>|</span> HIGH ALERT Coverage <span>|</span> CFTC Positions <span>|</span> MOO/MOC Imbalances <span>|</span> Follow @InstantNews73</div>
+      <div class="ticker-item">⚡ Breaking News 24/7 <span>|</span> Real-time Market Updates <span>|</span> Fed Decisions <span>|</span> Geopolitical Events <span>|</span> Economic Data <span>|</span> HIGH ALERT Coverage <span>|</span> CFTC Positions <span>|</span> MOO/MOC Imbalances <span>|</span> Follow @InstantNews73</div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="logo">
+      <div class="logo-icon">⚡</div>
+      <div class="logo-text">Instant<span>News</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#coverage">Coverage</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="https://x.com/InstantNews73" target="_blank" class="nav-cta">Follow on X</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge fade-in">
+        <div class="badge-dot"></div>
+        Live 24/7
+      </div>
+      <h1 class="fade-in">
+        News That
+        <em>Moves Markets</em>
+      </h1>
+      <p class="hero-desc fade-in">
+        Real-time breaking financial and geopolitical news, delivered <strong>instantly</strong>. From Fed decisions to market-moving events — we cover it all, 24 hours a day.
+      </p>
+      <div class="hero-ctas fade-in">
+        <a href="https://x.com/InstantNews73" target="_blank" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Follow @InstantNews73
+        </a>
+        <a href="https://t.me/FastestNewsFeed" target="_blank" class="btn btn-secondary">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          Telegram Channel
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number">24<span>/7</span></div>
+      <div class="stat-label">Live Coverage</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number"><span>&lt;</span>60<span>s</span></div>
+      <div class="stat-label">Avg. publish speed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">100<span>+</span></div>
+      <div class="stat-label">News alerts per day</div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="section" id="about">
+    <div class="section-label">// What we cover</div>
+    <div class="section-title">Everything That<br>Moves the Market</div>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">🏦</div>
+        <h3>Fed & Central Banks</h3>
+        <p>Rate decisions, FOMC statements, Powell speeches — every word that moves markets, instantly.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📊</div>
+        <h3>Economic Data</h3>
+        <p>CPI, NFP, GDP, PMI — all major economic releases with actual vs. forecast comparison.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🌍</div>
+        <h3>Geopolitical Events</h3>
+        <p>Wars, sanctions, trade deals, energy crises — events that ripple through global markets.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>HIGH ALERT Coverage</h3>
+        <p>Market crashes, emergency rate cuts, circuit breakers — maximum urgency when it matters most.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📈</div>
+        <h3>MOO/MOC Imbalances</h3>
+        <p>Market-on-Open and Market-on-Close institutional order imbalances with AI analysis.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📋</div>
+        <h3>CFTC Positioning</h3>
+        <p>Weekly CFTC commitment of traders data with detailed bullish/bearish breakdown.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEED PREVIEW -->
+  <section class="feed-section" id="coverage">
+    <div class="section-label">// Live feed</div>
+    <div class="section-title">Follow Us Live<br>on X</div>
+    <div class="feed-layout">
+      <div class="feed-left">
+        <div class="feed-points">
+          <div class="feed-point">
+            <div class="feed-point-icon">⚡</div>
+            <div class="feed-point-content">
+              <h4>Real-time alerts</h4>
+              <p>Every market-moving event published within seconds. No delays, no filters — just raw breaking news as it happens.</p>
+            </div>
+          </div>
+          <div class="feed-point">
+            <div class="feed-point-icon">🚨</div>
+            <div class="feed-point-content">
+              <h4>HIGH ALERT system</h4>
+              <p>Critical events get maximum urgency flagging — emergency rate cuts, circuit breakers, geopolitical escalations.</p>
+            </div>
+          </div>
+          <div class="feed-point">
+            <div class="feed-point-icon">📊</div>
+            <div class="feed-point-content">
+              <h4>AI-powered analysis</h4>
+              <p>MOO/MOC imbalances and CFTC data come with instant Claude AI analysis — not just raw numbers.</p>
+            </div>
+          </div>
+          <div class="feed-point">
+            <div class="feed-point-icon">🎯</div>
+            <div class="feed-point-content">
+              <h4>Ticker integration</h4>
+              <p>Relevant stock tickers automatically extracted and tagged — so you instantly know what's moving.</p>
+            </div>
+          </div>
+          <div class="feed-point">
+            <div class="feed-point-icon">📰</div>
+            <div class="feed-point-content">
+              <h4>Daily digest</h4>
+              <p>Every evening at 10 PM — the 3 most important stories of the day, summarized with context.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="feed-right">
+        <div class="feed-widget-wrap">
+          <div class="feed-widget-header">
+            <div class="feed-widget-dot"></div>
+            <div class="feed-widget-label">Live Feed</div>
+            <div class="feed-widget-handle">@InstantNews73</div>
+          </div>
+          <a class="twitter-timeline"
+             data-theme="dark"
+             data-height="600"
+             data-chrome="noheader nofooter noborders transparent"
+             data-tweet-limit="5"
+             href="https://twitter.com/InstantNews73">
+          </a>
+          <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="section-label">// FAQ</div>
+    <div class="section-title">Questions &<br>Answers</div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">Who are we?</div>
+        <div class="faq-a">InstantNews is an automated breaking financial and geopolitical news service operating 24/7. We aggregate and publish real-time market-moving news from verified sources.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What makes us different?</div>
+        <div class="faq-a">Speed and context. We publish within seconds of a news break, and our AI provides instant analysis — not just raw headlines. We also cover MOO/MOC imbalances and CFTC positioning that most services ignore.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is HIGH ALERT?</div>
+        <div class="faq-a">HIGH ALERT is our maximum urgency classification for events with immediate and significant market impact — think emergency rate cuts, market circuit breakers, sovereign debt defaults, or major geopolitical escalations.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Where can I follow InstantNews?</div>
+        <div class="faq-a">We're active on X (Twitter) at @InstantNews73 and on Telegram at @FastestNewsFeed. Both channels receive identical real-time updates.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is this financial advice?</div>
+        <div class="faq-a">No. InstantNews provides news and information only. Nothing published constitutes financial advice. Always do your own research before making investment decisions.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Never Miss a<br>Market Move</h2>
+    <p>Join thousands of traders following InstantNews for real-time alerts.</p>
+    <div class="cta-buttons">
+      <a href="https://x.com/InstantNews73" target="_blank" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Follow on X
+      </a>
+      <a href="https://t.me/FastestNewsFeed" target="_blank" class="btn btn-secondary">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        Join Telegram
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      <a href="/" class="logo">
+        <div class="logo-icon" style="width:28px;height:28px;font-size:14px">⚡</div>
+        <div class="logo-text" style="font-size:20px">Instant<span>News</span></div>
+      </a>
+      <div class="footer-links">
+        <a href="https://x.com/InstantNews73" target="_blank">X / Twitter</a>
+        <a href="https://t.me/FastestNewsFeed" target="_blank">Telegram</a>
+        <a href="mailto:contact@instantnews73.com">Contact</a>
+      </div>
+    </div>
+    <div class="footer-copy">© 2026 InstantNews. Not financial advice.</div>
+  </footer>
+
+</body>
+</html>
