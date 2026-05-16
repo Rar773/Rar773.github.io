@@ -417,7 +417,7 @@
           // Rozdeľ na headline — analysis
           const dashMatch = clean.match(/^(.+?)\s+[—–-]+\s+(.+)$/s);
           if (dashMatch) {
-            const headline = dashMatch[1].trim();
+            const headline = dashMatch[1].trim().replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F300}-\u{1F9FF}]/gu,'').trim();
             const analysis = dashMatch[2].trim();
             return `<div style="padding:20px 0;border-bottom:1px solid var(--border);">
               <div style="display:flex;align-items:flex-start;gap:16px;">
