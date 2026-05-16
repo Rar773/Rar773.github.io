@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -519,20 +520,80 @@
       color: var(--gray);
     }
 
+    /* HAMBURGER */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      width: 24px; height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10,10,11,0.98);
+      z-index: 200;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--white); text-decoration: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px; letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--red); }
+    .mobile-menu-close {
+      position: absolute; top: 24px; right: 24px;
+      font-size: 32px; color: var(--white);
+      cursor: pointer; background: none; border: none;
+    }
+    .mobile-cta {
+      background: var(--red) !important;
+      color: #fff !important;
+      padding: 14px 32px !important;
+      border-radius: 8px !important;
+      font-size: 20px !important;
+    }
+
     /* RESPONSIVE */
     @media (max-width: 900px) {
-      nav { padding: 16px 24px; }
+      nav { padding: 16px 20px; }
       .nav-links { display: none; }
-      .hero { padding: 60px 24px; }
-      .stats { grid-template-columns: 1fr; }
-      .stat { padding: 32px 24px; }
-      .section { padding: 60px 24px; }
+      .hamburger { display: flex; }
+      .hero { padding: 48px 20px 60px; min-height: 80vh; }
+      .hero h1 { font-size: 64px; }
+      .hero-desc { font-size: 16px; }
+      .hero-ctas { flex-direction: column; }
+      .hero-ctas .btn { width: 100%; justify-content: center; }
+      .stats { grid-template-columns: 1fr 1fr; }
+      .stat { padding: 28px 20px; }
+      .stat-number { font-size: 40px; }
+      .section { padding: 48px 20px; }
       .features-grid { grid-template-columns: 1fr; }
-      .feed-section { padding: 60px 24px; }
-      .feed-grid { grid-template-columns: 1fr; }
-      .cta-section { padding: 60px 24px; }
-      .cta-buttons { flex-direction: column; align-items: center; }
-      footer { padding: 32px 24px; flex-direction: column; gap: 16px; text-align: center; }
+      .feed-section { padding: 48px 20px; }
+      .feed-layout { grid-template-columns: 1fr; }
+      .feed-right { position: static; }
+      .cta-section { padding: 48px 20px; }
+      .cta-buttons { flex-direction: column; align-items: stretch; }
+      .cta-buttons .btn { justify-content: center; }
+      footer { padding: 28px 20px; flex-direction: column; gap: 20px; text-align: center; }
+      .footer-left { flex-direction: column; align-items: center; gap: 16px; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .stats { grid-template-columns: 1fr; }
+      .stat-number { font-size: 48px; }
     }
 
     /* ANIMATIONS */
@@ -559,6 +620,16 @@
     </div>
   </div>
 
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
+    <a href="index.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">Home</a>
+    <a href="news-demo.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">News</a>
+    <a href="moo-moc-demo.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">Markets</a>
+    <a href="#faq" onclick="document.getElementById('mobileMenu').classList.remove('open')">About</a>
+    <a href="https://x.com/InstantNews73" target="_blank" class="mobile-cta">Follow on X</a>
+  </div>
+
   <!-- NAV -->
   <nav>
     <a href="/" class="logo">
@@ -572,6 +643,9 @@
       <li><a href="#faq">About</a></li>
       <li><a href="https://x.com/InstantNews73" target="_blank" class="nav-cta">Follow on X</a></li>
     </ul>
+    <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">
+      <span></span><span></span><span></span>
+    </div>
   </nav>
 
   <!-- HERO -->
