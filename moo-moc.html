@@ -278,7 +278,6 @@
     const params = new URLSearchParams(window.location.search);
     const view = params.get('view') || 'today';
 
-    // Activate tab + panel
     document.getElementById('tab-' + view).classList.add('active');
     document.getElementById('panel-' + view).classList.add('active');
 
@@ -301,7 +300,7 @@
       const sp = parseInt(item.sp500)||0, nq = parseInt(item.nasdaq)||0;
       const sum = sp + nq;
       if (sum > 100) return {cls:'bullish', label: item.type==='MOO' ? 'Bullish Open' : 'Bullish Close'};
-      if (sum < -100) return {cls:'bearish', label: item.type==='MOC' ? 'Bearish Close' : 'Bearish Open'};
+      if (sum < -100) return {cls:'bearish', label: item.type==='MOO' ? 'Bearish Open' : 'Bearish Close'};
       return {cls:'neutral', label:'Neutral'};
     }
 
