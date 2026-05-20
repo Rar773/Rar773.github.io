@@ -327,7 +327,7 @@
 
       return '<div class="imbalance-card">' +
         '<div class="imbalance-card-header"><div class="imbalance-type">' +
-        '<div class="imbalance-badge badge-' + item.type.toLowerCase() + '">' + item.type + '</div>' +
+        '<div class="imbalance-badge badge-' + item.type.toLowerCase() + '">' + item.type.toUpperCase() + '</div>' +
         '<div style="font-size:13px;color:var(--gray)">' + (isMOO ? 'Market on Open' : 'Market on Close') + '</div>' +
         '</div><div class="imbalance-time">' + fmt(item.created_at) + '</div></div>' +
         '<div class="imbalance-bars">' + bars + '</div>' +
