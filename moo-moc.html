@@ -299,13 +299,13 @@
     function getSignal(item) {
       const sp = parseInt(item.sp500)||0, nq = parseInt(item.nasdaq)||0;
       const sum = sp + nq;
-      if (sum > 100) return {cls:'bullish', label: item.type==='MOO' ? 'Bullish Open' : 'Bullish Close'};
-      if (sum < -100) return {cls:'bearish', label: item.type==='MOO' ? 'Bearish Open' : 'Bearish Close'};
+      if (sum > 100) return {cls:'bullish', label: item.type?.toUpperCase() === 'MOO' ? 'Bullish Open' : 'Bullish Close'};
+      if (sum < -100) return {cls:'bearish', label: item.type?.toUpperCase() === 'MOO' ? 'Bearish Open' : 'Bearish Close'};
       return {cls:'neutral', label:'Neutral'};
     }
 
     function renderCard(item) {
-      const isMOO = item.type === 'MOO';
+      const isMOO = item.type?.toUpperCase() === 'MOO';
       const fields = [['S&P 500', item.sp500], ['Nasdaq', item.nasdaq], ['Dow 30', item.dow30], ['Mag 7', item.mag7]];
       const maxAbs = Math.max(...fields.map(f => Math.abs(parseInt(f[1])||0)), 1);
       const sig = getSignal(item);
