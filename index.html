@@ -3,15 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InstantNews — Fastest Breaking News</title>
-  <meta name="description" content="Real-time breaking financial and geopolitical news, 24/7. Follow us on X and Telegram.">
-  <meta property="og:title" content="InstantNews — Fastest Breaking News">
-  <meta property="og:description" content="Real-time breaking financial and geopolitical news, 24/7.">
-  <meta name="twitter:card" content="summary">
+  <title>InstantNews — Fastest Breaking Financial News</title>
+  <meta name="description" content="Breaking financial and geopolitical news 24/7: Fed decisions, economic data, MOO/MOC imbalances and CFTC positioning with AI analysis. Follow on Telegram and X.">
+  <!-- HEAD:START -->
+  <link rel="canonical" href="https://instantnews24.net/">
+  <meta name="theme-color" content="#0a0a0b">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="InstantNews">
+  <meta property="og:url" content="https://instantnews24.net/">
+  <meta property="og:title" content="InstantNews — Fastest Breaking Financial News">
+  <meta property="og:description" content="Breaking financial and geopolitical news 24/7: Fed decisions, economic data, MOO/MOC imbalances and CFTC positioning with AI analysis. Follow on Telegram and X.">
+  <meta property="og:image" content="https://instantnews24.net/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@InstantNews73">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23ff2d2d%22/><text x=%2216%22 y=%2223%22 font-size=%2220%22 text-anchor=%22middle%22 fill=%22white%22>⚡</text></svg>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <meta name="twitter:title" content="InstantNews — Fastest Breaking Financial News">
+  <meta name="twitter:description" content="Breaking financial and geopolitical news 24/7: Fed decisions, economic data, MOO/MOC imbalances and CFTC positioning with AI analysis. Follow on Telegram and X.">
+  <meta name="twitter:image" content="https://instantnews24.net/og-image.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script src="/assets/app.js"></script>
+  <!-- HEAD:END -->
+  <link rel="preload" href="/assets/fonts/bebas-neue-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/fonts.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -241,7 +257,7 @@
     /* STATS */
     .stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 1px;
       background: var(--border);
       border-top: 1px solid var(--border);
@@ -249,7 +265,7 @@
     }
     .stat {
       background: var(--bg);
-      padding: 48px 60px;
+      padding: 40px 48px;
       position: relative;
       overflow: hidden;
     }
@@ -471,6 +487,7 @@
       pointer-events: none;
     }
     .cta-section h2 {
+      line-height: 1;
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(48px, 6vw, 80px);
       letter-spacing: 0.02em;
@@ -614,7 +631,7 @@
       .hero-badge { font-size: 11px; padding: 5px 12px; margin-bottom: 24px; }
       .hero-desc { font-size: 15px; margin-bottom: 28px; }
 
-      .stats { grid-template-columns: 1fr; border-left: none; border-right: none; }
+      .stats { border-left: none; border-right: none; }
       .stat { padding: 24px 16px; }
       .stat-number { font-size: 52px; }
       .stat-label { font-size: 12px; }
@@ -653,291 +670,284 @@
     @keyframes fadeIn {
       to { opacity: 1; transform: translateY(0); }
     }
+  
+    /* HERO FEED */
+    .hero { gap: 60px; justify-content: space-between; }
+    .hero-feed { width: 420px; flex-shrink: 0; position: relative; z-index: 1; }
+
+    .how-grid { display: grid !important; grid-template-columns: 1fr 1fr; gap: 36px 48px !important; }
+    .feed-layout { grid-template-columns: 1fr !important; }
+    @media (max-width: 1100px) { .hero { flex-direction: column; align-items: stretch; } .hero-feed { width: 100%; } }
+    @media (max-width: 700px) { .how-grid { grid-template-columns: 1fr; } }
+
+    /* DASHBOARD */
+    .dash { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; min-height: 260px; }
+    .card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .card-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: .04em; }
+    .card-link { font-size: 13px; color: var(--gray); text-decoration: none; }
+    .card-link:hover { color: var(--white); }
+    .ev { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .ev:last-child { border-bottom: none; }
+    .ev .impact { margin-top: 7px; }
+    .ev-title { font-size: 14px; font-weight: 500; line-height: 1.4; }
+    .ev-meta { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gray); margin-top: 3px; }
+    .imb-row { display: grid; grid-template-columns: 90px 1fr 80px; gap: 10px; align-items: center; padding: 7px 0; font-size: 13px; }
+    .imb-track { height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+    .imb-fill { height: 100%; border-radius: 3px; }
+    .imb-val { font-family: 'DM Mono', monospace; font-size: 12px; text-align: right; }
+    .pos { color: #4ade80; } .neg { color: var(--red2); }
+    .brief-item { display: flex; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px; line-height: 1.5; color: #bbb; }
+    .brief-item:last-child { border-bottom: none; }
+    .brief-item b { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--red); line-height: 1; font-weight: 400; }
+    .feed-row { display: block; padding: 14px 20px; border-bottom: 1px solid var(--border); color: inherit; text-decoration: none; transition: background .2s; }
+    .feed-row:hover { background: var(--bg3); }
+    .feed-alert { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 5px; }
+    .feed-head { font-size: 13px; font-weight: 500; line-height: 1.4; color: var(--white); margin-bottom: 6px; }
+    .feed-meta { display: flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gray2); }
+    .feed-tick { font-size: 10px; color: var(--red2); background: rgba(255,45,45,.08); padding: 2px 6px; border-radius: 3px; }
+    @media (max-width: 1100px) { .dash { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 900px) { .stats { grid-template-columns: 1fr 1fr; } .dash { grid-template-columns: 1fr; } }
+    @media (max-width: 480px) { .stats { grid-template-columns: 1fr 1fr; } .stat-number { font-size: 40px; } }
   </style>
 </head>
 <body>
 
-  <!-- TICKER -->
-  <div class="ticker-wrap">
+  <div class="ticker-wrap" aria-hidden="true">
     <div class="ticker-track">
-      <div class="ticker-item">⚡ Breaking News 24/7 <span>|</span> Real-time Market Updates <span>|</span> Fed Decisions <span>|</span> Geopolitical Events <span>|</span> Economic Data <span>|</span> HIGH ALERT Coverage <span>|</span> CFTC Positions <span>|</span> MOO/MOC Imbalances <span>|</span> Follow @InstantNews73</div>
-      <div class="ticker-item">⚡ Breaking News 24/7 <span>|</span> Real-time Market Updates <span>|</span> Fed Decisions <span>|</span> Geopolitical Events <span>|</span> Economic Data <span>|</span> HIGH ALERT Coverage <span>|</span> CFTC Positions <span>|</span> MOO/MOC Imbalances <span>|</span> Follow @InstantNews73</div>
+      <div class="ticker-item">⚡ Breaking News 24/7 <span>|</span> Fed Decisions <span>|</span> Economic Data <span>|</span> HIGH ALERT Coverage <span>|</span> MOO/MOC Imbalances <span>|</span> CFTC Positioning <span>|</span> Follow @InstantNews73</div>
+      <div class="ticker-item">⚡ Breaking News 24/7 <span>|</span> Fed Decisions <span>|</span> Economic Data <span>|</span> HIGH ALERT Coverage <span>|</span> MOO/MOC Imbalances <span>|</span> CFTC Positioning <span>|</span> Follow @InstantNews73</div>
     </div>
   </div>
 
-  <!-- MOBILE MENU -->
-  <div class="mobile-menu" id="mobileMenu">
-    <button class="mobile-menu-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
-    <a href="index.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">Home</a>
-    <a href="news.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">News</a>
-    <a href="moo-moc.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">Markets</a>
-    <a href="#faq" onclick="document.getElementById('mobileMenu').classList.remove('open')">About</a>
-    <a href="https://x.com/InstantNews73" target="_blank" class="mobile-cta">Follow on X</a>
+  <!-- NAV:START -->
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu">
+    <button class="mobile-menu-close" data-menu-close aria-label="Close menu">✕</button>
+    <a href="/">Home</a>
+    <a href="/news.html">News</a>
+    <a href="/moo-moc.html">Markets</a>
+    <a href="/calendar.html">Calendar</a>
+    <a href="/index.html#faq">About</a>
+    <a href="https://x.com/InstantNews73" target="_blank" rel="noopener" class="mobile-cta">Follow on X</a>
   </div>
-
-  <!-- NAV -->
-  <nav>
-    <a href="/" class="logo">
-      <div class="logo-icon">⚡</div>
+  <nav aria-label="Main">
+    <a href="/" class="logo" aria-label="InstantNews home">
+      <div class="logo-icon" aria-hidden="true">⚡</div>
       <div class="logo-text">Instant<span>News</span></div>
     </a>
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="news.html">News</a></li>
-      <li><a href="moo-moc.html">Markets</a></li>
-      <li><a href="#faq">About</a></li>
-      <li><a href="https://x.com/InstantNews73" target="_blank" class="nav-cta">Follow on X</a></li>
-    </ul>
-    <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">
-      <span></span><span></span><span></span>
+    <div class="nav-right">
+      <ul class="nav-links">
+      <li><a href="/" class="active" aria-current="page">Home</a></li>
+      <li><a href="/news.html">News</a></li>
+      <li><a href="/moo-moc.html">Markets</a></li>
+      <li><a href="/calendar.html">Calendar</a></li>
+      <li><a href="/index.html#faq">About</a></li>
+        <li><a href="https://x.com/InstantNews73" target="_blank" rel="noopener" class="nav-cta">Follow on X</a></li>
+      </ul>
+      <span class="live-status" id="live-status" title="Live feed status"><span class="live-dot" aria-hidden="true"></span><span class="live-text">Live</span></span>
+      <button class="hamburger" data-menu-open aria-label="Open menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
+  <!-- NAV:END -->
 
-  <!-- HERO -->
+  <main id="main">
   <section class="hero">
     <div class="hero-content">
-      <div class="hero-badge fade-in">
-        <div class="badge-dot"></div>
-        Live 24/7
-      </div>
-      <h1 class="fade-in">
-        News That
-        <em>Moves Markets</em>
-      </h1>
-      <p class="hero-desc fade-in">
-        Real-time breaking financial and geopolitical news, delivered <strong>instantly</strong>. From Fed decisions to market-moving events — we cover it all, 24 hours a day.
-      </p>
+      <div class="hero-badge fade-in"><div class="badge-dot"></div>Live 24/7</div>
+      <h1 class="fade-in">News That <em>Moves Markets</em></h1>
+      <p class="hero-desc fade-in">Real-time breaking financial and geopolitical news, delivered <strong>instantly</strong>. Fed decisions, economic data, order imbalances and the events that move prices — around the clock.</p>
       <div class="hero-ctas fade-in">
-        <a href="https://x.com/InstantNews73" target="_blank" class="btn btn-primary">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          Follow @InstantNews73
-        </a>
-        <a href="https://t.me/FastestNewsFeed" target="_blank" class="btn btn-secondary">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-          Telegram Channel
-        </a>
+        <a href="https://t.me/FastestNewsFeed" target="_blank" rel="noopener" class="btn btn-primary"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg> Join Telegram — every headline</a>
+        <a href="https://x.com/InstantNews73" target="_blank" rel="noopener" class="btn btn-secondary"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> Follow @InstantNews73</a>
       </div>
+    </div>
+    <div class="hero-feed fade-in">
+      <div>
+        <div class="feed-widget-wrap">
+          <div class="feed-widget-header"><div class="feed-widget-dot"></div><div class="feed-widget-label">Breaking now</div><div class="feed-widget-handle">auto-updates</div></div>
+          <div id="live-feed" aria-live="polite"><div class="empty">Loading…</div></div>
+          <a href="/news.html" style="display:block;text-align:center;padding:14px;border-top:1px solid var(--border);font-size:13px;color:var(--gray);text-decoration:none;">View all news →</a>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- STATS -->
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-number">24<span>/7</span></div>
-      <div class="stat-label">Live Coverage</div>
-    </div>
-    <div class="stat">
-      <div class="stat-number"><span>&lt;</span>60<span>s</span></div>
-      <div class="stat-label">Avg. publish speed</div>
-    </div>
-    <div class="stat">
-      <div class="stat-number">100<span>+</span></div>
-      <div class="stat-label">News alerts per day</div>
-    </div>
+  <div class="stats" aria-label="Live statistics">
+    <div class="stat"><div class="stat-number">24<span>/7</span></div><div class="stat-label">Live coverage</div></div>
+    <div class="stat"><div class="stat-number" data-stat="today">—</div><div class="stat-label">Headlines today</div></div>
+    <div class="stat"><div class="stat-number"><span>🚨</span> <b data-stat="alerts_today" style="font-weight:400">—</b></div><div class="stat-label">High alerts today</div></div>
+    <div class="stat"><div class="stat-number" data-stat="week">—</div><div class="stat-label">Headlines this week</div></div>
   </div>
 
-  <!-- FEATURES -->
-  <section class="section" id="about">
-    <div class="section-label">// What we cover</div>
-    <div class="section-title">Everything That<br>Moves the Market</div>
-    <div class="features-grid">
-      <div class="feature">
-        <div class="feature-icon">🏦</div>
-        <h3>Fed & Central Banks</h3>
-        <p>Rate decisions, FOMC statements, Powell speeches — every word that moves markets, instantly.</p>
+  <section class="section" aria-labelledby="dash-title">
+    <div class="section-label">// Market dashboard</div>
+    <h2 class="section-title" id="dash-title">Today at a Glance</h2>
+    <div class="dash">
+      <div class="card">
+        <div class="card-head"><div class="card-title">📅 Next US Data</div><a class="card-link" href="/calendar.html">Full calendar →</a></div>
+        <div id="dash-cal"><div class="empty">Loading…</div></div>
       </div>
-      <div class="feature">
-        <div class="feature-icon">📊</div>
-        <h3>Economic Data</h3>
-        <p>CPI, NFP, GDP, PMI — all major economic releases with actual vs. forecast comparison.</p>
+      <div class="card">
+        <div class="card-head"><div class="card-title" id="dash-imb-title">📈 Latest Imbalance</div><a class="card-link" href="/moo-moc.html">Markets →</a></div>
+        <div id="dash-imb"><div class="empty">Loading…</div></div>
       </div>
-      <div class="feature">
-        <div class="feature-icon">🌍</div>
-        <h3>Geopolitical Events</h3>
-        <p>Wars, sanctions, trade deals, energy crises — events that ripple through global markets.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">⚡</div>
-        <h3>HIGH ALERT Coverage</h3>
-        <p>Market crashes, emergency rate cuts, circuit breakers — maximum urgency when it matters most.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">📈</div>
-        <h3>MOO/MOC Imbalances</h3>
-        <p>Market-on-Open and Market-on-Close institutional order imbalances with AI analysis.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">📋</div>
-        <h3>CFTC Positioning</h3>
-        <p>Weekly CFTC commitment of traders data with detailed bullish/bearish breakdown.</p>
+      <div class="card">
+        <div class="card-head"><div class="card-title">📰 Daily Brief</div><a class="card-link" href="/news.html?cat=digest">Archive →</a></div>
+        <div id="dash-brief"><div class="empty">Loading…</div></div>
       </div>
     </div>
   </section>
 
-  <!-- FEED PREVIEW -->
   <section class="feed-section" id="coverage">
-    <div class="section-label">// Live feed</div>
-    <div class="section-title">Follow Us Live<br>on X</div>
+    <div class="section-label">// How it works</div>
+    <h2 class="section-title">Built for<br>Speed</h2>
     <div class="feed-layout">
       <div class="feed-left">
-        <div class="feed-points">
-          <div class="feed-point">
-            <div class="feed-point-icon">⚡</div>
-            <div class="feed-point-content">
-              <h4>Real-time alerts</h4>
-              <p>Every market-moving event published within seconds. No delays, no filters — just raw breaking news as it happens.</p>
-            </div>
-          </div>
-          <div class="feed-point">
-            <div class="feed-point-icon">🚨</div>
-            <div class="feed-point-content">
-              <h4>HIGH ALERT system</h4>
-              <p>Critical events get maximum urgency flagging — emergency rate cuts, circuit breakers, geopolitical escalations.</p>
-            </div>
-          </div>
-          <div class="feed-point">
-            <div class="feed-point-icon">📊</div>
-            <div class="feed-point-content">
-              <h4>AI-powered analysis</h4>
-              <p>MOO/MOC imbalances and CFTC data come with instant Claude AI analysis — not just raw numbers.</p>
-            </div>
-          </div>
-          <div class="feed-point">
-            <div class="feed-point-icon">🎯</div>
-            <div class="feed-point-content">
-              <h4>Ticker integration</h4>
-              <p>Relevant stock tickers automatically extracted and tagged — so you instantly know what's moving.</p>
-            </div>
-          </div>
-          <div class="feed-point">
-            <div class="feed-point-icon">📰</div>
-            <div class="feed-point-content">
-              <h4>Daily digest</h4>
-              <p>Every evening at 10 PM — the 3 most important stories of the day, summarized with context.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="feed-right">
-        <div class="feed-widget-wrap">
-          <div class="feed-widget-header">
-            <div class="feed-widget-dot"></div>
-            <div class="feed-widget-label">Live Feed</div>
-            <div class="feed-widget-handle">@InstantNews73</div>
-          </div>
-          <div id="live-feed" style="padding: 8px 0;">
-            <div style="padding: 24px 20px; color: var(--gray); font-size: 13px; text-align:center;">Loading...</div>
-          </div>
-          <a href="news.html" style="display:block; text-align:center; padding: 14px; border-top: 1px solid var(--border); font-size: 13px; color: var(--gray); text-decoration:none; transition: color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--gray)'">View all news →</a>
+        <div class="feed-points how-grid">
+          <div class="feed-point"><div class="feed-point-icon" aria-hidden="true">⚡</div><div class="feed-point-content"><h3 style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.04em;margin-bottom:6px;font-weight:400">Seconds, not minutes</h3><p>Headlines go out the moment they break. Telegram gets every story; X gets the ones that matter most.</p></div></div>
+          <div class="feed-point"><div class="feed-point-icon" aria-hidden="true">🚨</div><div class="feed-point-content"><h3 style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.04em;margin-bottom:6px;font-weight:400">HIGH ALERT system</h3><p>Rate decisions, attacks, circuit breakers and other critical events are flagged with maximum urgency.</p></div></div>
+          <div class="feed-point"><div class="feed-point-icon" aria-hidden="true">📊</div><div class="feed-point-content"><h3 style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.04em;margin-bottom:6px;font-weight:400">Numbers with context</h3><p>Economic data shows actual vs. forecast. MOO/MOC and CFTC data come with a short AI analysis.</p></div></div>
+          <div class="feed-point"><div class="feed-point-icon" aria-hidden="true">⏰</div><div class="feed-point-content"><h3 style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.04em;margin-bottom:6px;font-weight:400">Countdown alerts</h3><p>A heads-up 5 minutes before every high-impact US release, plus the day's calendar at 7:30 ET.</p></div></div>
+          <div class="feed-point"><div class="feed-point-icon" aria-hidden="true">📈</div><div class="feed-point-content"><h3 style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.04em;margin-bottom:6px;font-weight:400">Daily brief &amp; week ahead</h3><p>The day's top stories every evening, and a Nasdaq week-ahead outlook every Sunday.</p></div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <script>
-    const FEED_API = 'https://bot-production-77f512be.up.railway.app/api/news?limit=6';
+  <section class="section" id="about">
+    <div class="section-label">// What we cover</div>
+    <h2 class="section-title">Everything That<br>Moves the Market</h2>
+    <div class="features-grid">
+      <div class="feature"><div class="feature-icon" aria-hidden="true">🏦</div><h3>Fed &amp; Central Banks</h3><p>Rate decisions straight from the Federal Reserve, FOMC statements and central bank headlines.</p></div>
+      <div class="feature"><div class="feature-icon" aria-hidden="true">📊</div><h3>Economic Data</h3><p>CPI, NFP, GDP, PMI and every major US release with actual vs. forecast and beat/miss.</p></div>
+      <div class="feature"><div class="feature-icon" aria-hidden="true">🌍</div><h3>Geopolitical Events</h3><p>Wars, sanctions, trade deals and energy shocks — events that ripple through global markets.</p></div>
+      <div class="feature"><div class="feature-icon" aria-hidden="true">💼</div><h3>Earnings &amp; Auctions</h3><p>EPS and revenue vs. estimates, Treasury auction results with yield and bid-to-cover.</p></div>
+      <div class="feature"><div class="feature-icon" aria-hidden="true">📈</div><h3>MOO / MOC Imbalances</h3><p>Market-on-open and market-on-close order imbalances for S&amp;P 500, Nasdaq 100, Dow and Mag 7.</p></div>
+      <div class="feature"><div class="feature-icon" aria-hidden="true">📋</div><h3>CFTC Positioning</h3><p>Weekly commitment of traders data with a clear bullish/bearish breakdown.</p></div>
+    </div>
+  </section>
 
-    function feedFormatTime(iso) {
-      const d = new Date(iso);
-      const now = new Date();
-      const diffMs = now - d;
-      const diffMin = Math.floor(diffMs / 60000);
-      if (diffMin < 1) return 'just now';
-      if (diffMin < 60) return `${diffMin}m ago`;
-      const diffH = Math.floor(diffMin / 60);
-      if (diffH < 24) return `${diffH}h ago`;
-      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      return `${months[d.getMonth()]} ${d.getDate()}`;
-    }
-
-    async function loadFeed() {
-      try {
-        const res = await fetch(FEED_API);
-        const json = await res.json();
-        const news = json.data || [];
-        const feed = document.getElementById('live-feed');
-        if (!news.length) {
-          feed.innerHTML = '<div style="padding:24px 20px;color:var(--gray);font-size:13px;text-align:center;">No news yet.</div>';
-          return;
-        }
-        feed.innerHTML = news.map(item => `
-          <div style="padding: 14px 20px; border-bottom: 1px solid var(--border); transition: background 0.2s;" onmouseover="this.style.background='var(--bg3)'" onmouseout="this.style.background='transparent'">
-            ${item.high_alert ? '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--red);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">🚨 HIGH ALERT</div>' : ''}
-            <div style="font-size:13px;font-weight:500;line-height:1.4;color:var(--white);margin-bottom:6px;">${item.headline}</div>
-            <div style="display:flex;align-items:center;gap:8px;">
-              <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gray2);">${feedFormatTime(item.created_at)}</span>
-              ${item.ticker ? `<span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--red2);background:rgba(255,45,45,0.08);padding:2px 6px;border-radius:3px;">$${item.ticker}</span>` : ''}
-            </div>
-          </div>`).join('');
-      } catch(e) {
-        document.getElementById('live-feed').innerHTML =
-          '<div style="padding:24px 20px;color:var(--gray);font-size:13px;text-align:center;">⚠️ Feed unavailable</div>';
-      }
-    }
-
-    loadFeed();
-    setInterval(loadFeed, 60000);
-  </script>
-
-  <!-- FAQ -->
   <section class="section" id="faq">
     <div class="section-label">// FAQ</div>
-    <div class="section-title">Questions &<br>Answers</div>
+    <h2 class="section-title">Questions &amp;<br>Answers</h2>
     <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-q">Who are we?</div>
-        <div class="faq-a">InstantNews is an automated breaking financial and geopolitical news service operating 24/7. We aggregate and publish real-time market-moving news from verified sources.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">What makes us different?</div>
-        <div class="faq-a">Speed and context. We publish within seconds of a news break, and our AI provides instant analysis — not just raw headlines. We also cover MOO/MOC imbalances and CFTC positioning that most services ignore.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">What is HIGH ALERT?</div>
-        <div class="faq-a">HIGH ALERT is our maximum urgency classification for events with immediate and significant market impact — think emergency rate cuts, market circuit breakers, sovereign debt defaults, or major geopolitical escalations.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Where can I follow InstantNews?</div>
-        <div class="faq-a">We're active on X (Twitter) at @InstantNews73 and on Telegram at @FastestNewsFeed. Both channels receive identical real-time updates.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Is this financial advice?</div>
-        <div class="faq-a">No. InstantNews provides news and information only. Nothing published constitutes financial advice. Always do your own research before making investment decisions.</div>
-      </div>
+      <div class="faq-item"><h3 class="faq-q" style="font-weight:500">Who are we?</h3><div class="faq-a">InstantNews is an automated breaking-news service for traders, running 24/7. We publish market-moving financial and geopolitical headlines the moment they break.</div></div>
+      <div class="faq-item"><h3 class="faq-q" style="font-weight:500">Where does the news come from?</h3><div class="faq-a">From established financial news wires, the Federal Reserve's own website and selected news channels. When we pass on a story from another channel, we name the source.</div></div>
+      <div class="faq-item"><h3 class="faq-q" style="font-weight:500">Telegram or X — what's the difference?</h3><div class="faq-a">Telegram (@FastestNewsFeed) gets every headline. X (@InstantNews73) gets the most important ones: high alerts, economic data, earnings, imbalances and our daily brief.</div></div>
+      <div class="faq-item"><h3 class="faq-q" style="font-weight:500">What is HIGH ALERT?</h3><div class="faq-a">Our maximum-urgency label for events with immediate market impact — rate decisions, military strikes, circuit breakers, defaults and similar shocks.</div></div>
+      <div class="faq-item"><h3 class="faq-q" style="font-weight:500">How is AI used?</h3><div class="faq-a">Headlines are published as they are. AI (Claude by Anthropic) formats economic data and writes the short analysis for MOO/MOC, CFTC, the daily brief and the Sunday outlook. Numbers are always taken from the source data.</div></div>
+      <div class="faq-item"><h3 class="faq-q" style="font-weight:500">Is this financial advice?</h3><div class="faq-a">No. InstantNews provides news and information only. Nothing we publish is financial advice. Always do your own research before making investment decisions.</div></div>
     </div>
   </section>
 
-  <!-- CTA -->
   <section class="cta-section">
     <h2>Never Miss a<br>Market Move</h2>
-    <p>Join thousands of traders following InstantNews for real-time alerts.</p>
+    <p>Get every headline the second it breaks — free.</p>
     <div class="cta-buttons">
-      <a href="https://x.com/InstantNews73" target="_blank" class="btn btn-primary">
-        <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        Follow on X
-      </a>
-      <a href="https://t.me/FastestNewsFeed" target="_blank" class="btn btn-secondary">
-        <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-        Join Telegram
-      </a>
+      <a href="https://t.me/FastestNewsFeed" target="_blank" rel="noopener" class="btn btn-primary"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg> Join Telegram</a>
+      <a href="https://x.com/InstantNews73" target="_blank" rel="noopener" class="btn btn-secondary"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> Follow on X</a>
     </div>
   </section>
+  </main>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-left">
-      <a href="/" class="logo">
-        <div class="logo-icon" style="width:28px;height:28px;font-size:14px">⚡</div>
+  <!-- FOOTER:START -->
+  <footer class="site-footer">
+    <div>
+      <a href="/" class="logo" aria-label="InstantNews home">
+        <div class="logo-icon" style="width:28px;height:28px;font-size:14px" aria-hidden="true">⚡</div>
         <div class="logo-text" style="font-size:20px">Instant<span>News</span></div>
       </a>
-      <div class="footer-links">
-        <a href="https://x.com/InstantNews73" target="_blank">X / Twitter</a>
-        <a href="https://t.me/FastestNewsFeed" target="_blank">Telegram</a>
-        <a href="mailto:contact@instantnews73.com">Contact</a>
-      </div>
+      <p class="footer-about">Breaking financial and geopolitical news, 24/7. We publish market-moving headlines within seconds and add AI context to the numbers that matter.</p>
     </div>
-    <div class="footer-copy">© 2026 InstantNews. Not financial advice.</div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="/news.html">Latest news</a></li>
+        <li><a href="/moo-moc.html">MOO / MOC imbalances</a></li>
+        <li><a href="/moo-moc.html?view=cftc">CFTC positioning</a></li>
+        <li><a href="/calendar.html">Economic calendar</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Follow</h4>
+      <ul>
+        <li><a href="https://t.me/FastestNewsFeed" target="_blank" rel="noopener">Telegram @FastestNewsFeed</a></li>
+        <li><a href="https://x.com/InstantNews73" target="_blank" rel="noopener">X @InstantNews73</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/privacy.html">Privacy policy</a></li>
+        <li><a href="/terms.html">Terms of use</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> InstantNews. News and information only — not financial advice.</span>
+      <span>No cookies. No tracking.</span>
+    </div>
   </footer>
+  <!-- FOOTER:END -->
 
+  <script>
+    function feedRow(n) {
+      return '<a class="feed-row" href="/news.html">' +
+        (n.high_alert ? '<div class="feed-alert">🚨 High alert</div>' : '') +
+        '<div class="feed-head">' + esc(n.headline) + '</div>' +
+        '<div class="feed-meta"><span>' + timeAgo(n.created_at) + '</span>' +
+        (n.ticker ? '<span class="feed-tick">$' + esc(n.ticker) + '</span>' : '') + '</div></a>';
+    }
+    let lastTop = 0;
+    async function loadFeed() {
+      const el = document.getElementById('live-feed');
+      try {
+        const news = await api('/api/news?limit=5');
+        if (!news.length) { el.innerHTML = '<div class="empty">No headlines yet today.</div>'; return; }
+        el.innerHTML = news.map(feedRow).join('');
+        if (lastTop && news[0].id !== lastTop) el.firstElementChild.classList.add('new-flash');
+        lastTop = news[0].id;
+        const t = news.slice(0, 6).map(n => esc(n.headline)).join(' <span>|</span> ');
+        document.querySelectorAll('.ticker-item').forEach(x => x.innerHTML = '⚡ LIVE <span>|</span> ' + t + ' <span>|</span> Follow @InstantNews73');
+      } catch { el.innerHTML = '<div class="empty">⚠️ Feed temporarily unavailable.</div>'; }
+    }
+    async function loadCal() {
+      const el = document.getElementById('dash-cal');
+      try {
+        const now = Date.now();
+        const evs = (await api('/api/calendar')).filter(e => e.impact === 'High' && Date.parse(e.date) > now - 30 * 60000).slice(0, 5);
+        el.innerHTML = evs.length ? evs.map(e => '<div class="ev"><span class="impact ' + e.impact + '"></span><div><div class="ev-title">' + esc(e.title) + '</div><div class="ev-meta">' + dayET(e.date) + ' · ' + timeET(e.date) + (e.forecast ? ' · fc ' + esc(e.forecast) : '') + '</div></div></div>').join('')
+          : '<div class="empty">No more high-impact US releases this week.</div>';
+      } catch { el.innerHTML = '<div class="empty">Calendar unavailable.</div>'; }
+    }
+    function fmtM(v) { const a = Math.abs(v); return (v < 0 ? '−' : '+') + '$' + (a >= 1000 ? (a / 1000).toFixed(2) + 'B' : a + 'M'); }
+    async function loadImb() {
+      const el = document.getElementById('dash-imb');
+      try {
+        const [i] = await api('/api/imbalances?limit=1');
+        if (!i) { el.innerHTML = '<div class="empty">MOO data arrives before the US open, MOC before the close.</div>'; return; }
+        document.getElementById('dash-imb-title').textContent = '📈 ' + i.type + ' Imbalance';
+        const f = [['S&P 500', +i.sp500], ['Nasdaq 100', +i.nasdaq], ['Dow 30', +i.dow30], ['Mag 7', +i.mag7]];
+        const max = Math.max(1, ...f.map(x => Math.abs(x[1])));
+        el.innerHTML = f.map(([k, v]) => '<div class="imb-row"><span>' + k + '</span><div class="imb-track"><div class="imb-fill" style="width:' + Math.round(Math.abs(v) / max * 100) + '%;background:' + (v >= 0 ? '#22c55e' : 'var(--red)') + '"></div></div><span class="imb-val ' + (v >= 0 ? 'pos' : 'neg') + '">' + fmtM(v) + '</span></div>').join('') +
+          '<div class="ev-meta" style="margin-top:12px">' + timeFull(i.created_at) + '</div>';
+      } catch { el.innerHTML = '<div class="empty">Data unavailable.</div>'; }
+    }
+    async function loadBrief() {
+      const el = document.getElementById('dash-brief');
+      try {
+        const [d] = await api('/api/digest?limit=1');
+        if (!d) { el.innerHTML = '<div class="empty">The daily brief is published every evening at 22:00 CET.</div>'; return; }
+        const items = d.content.split(/\n\n+/).map(p => p.replace(/^\s*\S{0,6}️⃣\s*/, '').replace(/^\s*\d+[.)]\s*/, '').trim()).filter(Boolean).slice(0, 3);
+        el.innerHTML = items.map((t, k) => '<div class="brief-item"><b>' + (k + 1) + '</b><span>' + esc(t.split(/\s+[—–]\s+/)[0]) + '</span></div>').join('') +
+          '<div class="ev-meta" style="margin-top:12px">' + timeFull(d.created_at) + '</div>';
+      } catch { el.innerHTML = '<div class="empty">Brief unavailable.</div>'; }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      loadFeed(); loadCal(); loadImb(); loadBrief();
+      setInterval(loadFeed, 30000); setInterval(loadImb, 120000); setInterval(loadCal, 600000);
+    });
+  </script>
 </body>
 </html>

@@ -3,10 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InstantNews — Market Imbalance Analysis</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23ff2d2d%22/><text x=%2216%22 y=%2223%22 font-size=%2220%22 text-anchor=%22middle%22 fill=%22white%22>⚡</text></svg>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <title>MOO / MOC Imbalances & CFTC Positioning — InstantNews</title>
+  <meta name="description" content="Market-on-open and market-on-close order imbalances for S&amp;P 500, Nasdaq 100, Dow 30 and Mag 7 with AI analysis, weekly CFTC positioning and the Nasdaq week-ahead outlook.">
+  <!-- HEAD:START -->
+  <link rel="canonical" href="https://instantnews24.net/moo-moc.html">
+  <meta name="theme-color" content="#0a0a0b">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="InstantNews">
+  <meta property="og:url" content="https://instantnews24.net/moo-moc.html">
+  <meta property="og:title" content="MOO / MOC Imbalances & CFTC Positioning — InstantNews">
+  <meta property="og:description" content="Market-on-open and market-on-close order imbalances for S&amp;P 500, Nasdaq 100, Dow 30 and Mag 7 with AI analysis, weekly CFTC positioning and the Nasdaq week-ahead outlook.">
+  <meta property="og:image" content="https://instantnews24.net/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@InstantNews73">
+  <meta name="twitter:title" content="MOO / MOC Imbalances & CFTC Positioning — InstantNews">
+  <meta name="twitter:description" content="Market-on-open and market-on-close order imbalances for S&amp;P 500, Nasdaq 100, Dow 30 and Mag 7 with AI analysis, weekly CFTC positioning and the Nasdaq week-ahead outlook.">
+  <meta name="twitter:image" content="https://instantnews24.net/og-image.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script src="/assets/app.js"></script>
+  <!-- HEAD:END -->
+  <link rel="preload" href="/assets/fonts/bebas-neue-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/fonts.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -78,7 +99,11 @@
     .claude-icon { width: 28px; height: 28px; background: linear-gradient(135deg, #ff9500, #ffb800); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
     .claude-label { font-size: 12px; font-weight: 500; color: var(--amber); letter-spacing: 0.05em; }
     .claude-label span { color: var(--gray); font-weight: 400; margin-left: 4px; }
-    .claude-text { font-size: 14px; line-height: 1.7; color: #bbb; font-style: italic; }
+    .claude-text { font-size: 14px; line-height: 1.7; color: #bbb; white-space: pre-line; }
+    .outlook { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 32px; font-size: 15px; line-height: 1.8; color: #ccc; white-space: pre-line; }
+    .outlook-date { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--gray); margin-bottom: 16px; }
+    .page-tabs { overflow-x: auto; scrollbar-width: none; }
+    .tab { white-space: nowrap; }
     .signal-footer { padding: 16px 28px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
     .signal { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 100px; }
     .signal.bearish { background: rgba(255,45,45,0.1); color: var(--red2); border: 1px solid rgba(255,45,45,0.2); }
@@ -165,36 +190,43 @@
     </div>
   </div>
 
-  <div class="mobile-menu" id="mobileMenu">
-    <button class="mobile-menu-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
-    <a href="index.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">Home</a>
-    <a href="news.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">News</a>
-    <a href="moo-moc.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">Markets</a>
-    <a href="index.html#faq" onclick="document.getElementById('mobileMenu').classList.remove('open')">About</a>
-    <a href="https://x.com/InstantNews73" target="_blank" class="mobile-cta">Follow on X</a>
+  <!-- NAV:START -->
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu">
+    <button class="mobile-menu-close" data-menu-close aria-label="Close menu">✕</button>
+    <a href="/">Home</a>
+    <a href="/news.html">News</a>
+    <a href="/moo-moc.html">Markets</a>
+    <a href="/calendar.html">Calendar</a>
+    <a href="/index.html#faq">About</a>
+    <a href="https://x.com/InstantNews73" target="_blank" rel="noopener" class="mobile-cta">Follow on X</a>
   </div>
-
-  <nav>
-    <a href="/" class="logo">
-      <div class="logo-icon">⚡</div>
+  <nav aria-label="Main">
+    <a href="/" class="logo" aria-label="InstantNews home">
+      <div class="logo-icon" aria-hidden="true">⚡</div>
       <div class="logo-text">Instant<span>News</span></div>
     </a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="news.html">News</a></li>
-      <li><a href="moo-moc.html" class="active">Markets</a></li>
-      <li><a href="index.html#faq">About</a></li>
-      <li><a href="https://x.com/InstantNews73" target="_blank" class="nav-cta">Follow on X</a></li>
-    </ul>
-    <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">
-      <span></span><span></span><span></span>
+    <div class="nav-right">
+      <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/news.html">News</a></li>
+      <li><a href="/moo-moc.html" class="active" aria-current="page">Markets</a></li>
+      <li><a href="/calendar.html">Calendar</a></li>
+      <li><a href="/index.html#faq">About</a></li>
+        <li><a href="https://x.com/InstantNews73" target="_blank" rel="noopener" class="nav-cta">Follow on X</a></li>
+      </ul>
+      <span class="live-status" id="live-status" title="Live feed status"><span class="live-dot" aria-hidden="true"></span><span class="live-text">Live</span></span>
+      <button class="hamburger" data-menu-open aria-label="Open menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
+  <!-- NAV:END -->
+
+  <main id="main">
 
   <div class="page-header">
     <div class="page-header-top">
       <div>
-        <div class="page-title">Market <span>Imbalances</span></div>
+        <h1 class="page-title">Market <span>Imbalances</span></h1>
         <div class="page-subtitle">MOO & MOC order imbalance data with AI-powered analysis</div>
       </div>
       <div style="text-align:right">
@@ -207,6 +239,7 @@
       <a href="moo-moc.html?view=week" class="tab" id="tab-week">This Week</a>
       <a href="moo-moc.html?view=history" class="tab" id="tab-history">History</a>
       <a href="moo-moc.html?view=cftc" class="tab" id="tab-cftc">CFTC</a>
+      <a href="moo-moc.html?view=outlook" class="tab" id="tab-outlook">NQ Week Ahead</a>
     </div>
   </div>
 
@@ -247,6 +280,14 @@
       <div id="cftc-wrap"><div class="empty-state"><div class="empty-icon">⏳</div><p>Loading...</p></div></div>
     </div>
 
+    <!-- WEEK AHEAD -->
+    <div class="tab-panel" id="panel-outlook">
+      <div class="section-header">
+        <div class="section-label">// Nasdaq week ahead · every Sunday</div>
+      </div>
+      <div id="outlook-wrap"><div class="empty-state"><div class="empty-icon">⏳</div><p>Loading...</p></div></div>
+    </div>
+
     <!-- EXPLAINER -->
     <div class="explainer">
       <div>
@@ -273,10 +314,52 @@
 
   </div>
 
+  </main>
+
+  <!-- FOOTER:START -->
+  <footer class="site-footer">
+    <div>
+      <a href="/" class="logo" aria-label="InstantNews home">
+        <div class="logo-icon" style="width:28px;height:28px;font-size:14px" aria-hidden="true">⚡</div>
+        <div class="logo-text" style="font-size:20px">Instant<span>News</span></div>
+      </a>
+      <p class="footer-about">Breaking financial and geopolitical news, 24/7. We publish market-moving headlines within seconds and add AI context to the numbers that matter.</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="/news.html">Latest news</a></li>
+        <li><a href="/moo-moc.html">MOO / MOC imbalances</a></li>
+        <li><a href="/moo-moc.html?view=cftc">CFTC positioning</a></li>
+        <li><a href="/calendar.html">Economic calendar</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Follow</h4>
+      <ul>
+        <li><a href="https://t.me/FastestNewsFeed" target="_blank" rel="noopener">Telegram @FastestNewsFeed</a></li>
+        <li><a href="https://x.com/InstantNews73" target="_blank" rel="noopener">X @InstantNews73</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/privacy.html">Privacy policy</a></li>
+        <li><a href="/terms.html">Terms of use</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> InstantNews. News and information only — not financial advice.</span>
+      <span>No cookies. No tracking.</span>
+    </div>
+  </footer>
+  <!-- FOOTER:END -->
+
   <script>
-    const BASE = 'https://bot-production-77f512be.up.railway.app';
+    const BASE = API;
     const params = new URLSearchParams(window.location.search);
-    const view = params.get('view') || 'today';
+    let view = params.get('view') || 'today';
+    if (!document.getElementById('tab-' + view)) view = 'today';
 
     document.getElementById('tab-' + view).classList.add('active');
     document.getElementById('panel-' + view).classList.add('active');
@@ -292,8 +375,8 @@
     function fmtMln(val) {
       const n = parseInt(val);
       if (isNaN(n)) return '—';
-      const sign = n >= 0 ? '+' : '';
-      return sign + Math.round(n/1).toLocaleString() + ' mln';
+      const a = Math.abs(n);
+      return (n < 0 ? '−' : '+') + '$' + (a >= 1000 ? (a / 1000).toFixed(2) + 'B' : a.toLocaleString() + 'M');
     }
 
     function getSignal(item) {
@@ -322,12 +405,12 @@
       const analysis = item.claude_analysis
         ? '<div class="claude-analysis"><div class="claude-header"><div class="claude-icon">✦</div>' +
           '<div class="claude-label">Claude Analysis <span>· AI-generated</span></div></div>' +
-          '<div class="claude-text">' + item.claude_analysis + '</div></div>'
+          '<div class="claude-text">' + esc(item.claude_analysis) + '</div></div>'
         : '';
 
       return '<div class="imbalance-card">' +
         '<div class="imbalance-card-header"><div class="imbalance-type">' +
-        '<div class="imbalance-badge badge-' + item.type.toLowerCase() + '">' + item.type.toUpperCase() + '</div>' +
+        '<div class="imbalance-badge badge-' + esc(item.type).toLowerCase() + '">' + esc(item.type).toUpperCase() + '</div>' +
         '<div style="font-size:13px;color:var(--gray)">' + (isMOO ? 'Market on Open' : 'Market on Close') + '</div>' +
         '</div><div class="imbalance-time">' + fmt(item.created_at) + '</div></div>' +
         '<div class="imbalance-bars">' + bars + '</div>' +
@@ -347,7 +430,7 @@
         const cls = v => v >= 0 ? 'td-positive' : 'td-negative';
         return '<tr>' +
           '<td style="font-family:\'DM Mono\',monospace;font-size:12px;color:var(--gray)">' + fmt(item.created_at) + '</td>' +
-          '<td><span class="type-badge type-' + item.type.toLowerCase() + '">' + item.type + '</span></td>' +
+          '<td><span class="type-badge type-' + esc(item.type).toLowerCase() + '">' + esc(item.type) + '</span></td>' +
           '<td class="td-mono ' + cls(sp) + '">' + fmtMln(item.sp500) + '</td>' +
           '<td class="td-mono ' + cls(nq) + '">' + fmtMln(item.nasdaq) + '</td>' +
           '<td class="td-mono ' + cls(dow) + ' col-hide-mobile">' + fmtMln(item.dow30) + '</td>' +
@@ -387,9 +470,10 @@
 
     async function loadWeek() {
       try {
-        const res = await fetch(BASE + '/api/imbalances?limit=14');
+        const res = await fetch(BASE + '/api/imbalances?limit=20');
         const json = await res.json();
-        document.getElementById('week-table-wrap').innerHTML = renderTable(json.data || []);
+        const weekAgo = Date.now() - 7 * 86400000;
+        document.getElementById('week-table-wrap').innerHTML = renderTable((json.data || []).filter(i => Date.parse(i.created_at) > weekAgo));
       } catch(e) {
         document.getElementById('week-table-wrap').innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><p>Could not load data.</p></div>';
       }
@@ -418,9 +502,10 @@
         const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
         el.innerHTML = items.map(item => {
           const d = new Date(item.created_at);
-          const weekLabel = item.week_ending || ('Week of ' + mo[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear());
+          const we = item.week_ending ? new Date(item.week_ending) : d;
+          const weekLabel = 'Week of ' + mo[we.getUTCMonth()] + ' ' + we.getUTCDate() + ', ' + we.getUTCFullYear();
           return '<div class="cftc-card"><div class="cftc-week">📊 ' + weekLabel + '</div>' +
-            '<div class="cftc-analysis">' + (item.claude_analysis || 'No analysis available.') + '</div></div>';
+            '<div class="cftc-analysis">' + esc(item.claude_analysis || 'No analysis available.') + '</div></div>';
         }).join('');
       } catch(e) {
         document.getElementById('cftc-wrap').innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><p>Could not load CFTC data.</p></div>';
@@ -431,6 +516,19 @@
     if (view === 'week') loadWeek();
     if (view === 'history') loadHistory();
     if (view === 'cftc') loadCFTC();
+    if (view === 'outlook') loadOutlook();
+
+    async function loadOutlook() {
+      const el = document.getElementById('outlook-wrap');
+      try {
+        const [w] = await api('/api/weekly?limit=1');
+        el.innerHTML = w
+          ? '<div class="outlook"><div class="outlook-date">Published ' + esc(new Date(w.created_at).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })) + '</div>' + esc(w.content) + '</div>'
+          : '<div class="empty-state"><div class="empty-icon">📈</div><p>The Nasdaq week-ahead outlook is published every Sunday evening.<br>It combines CFTC positioning, Friday\'s MOC flow and the week\'s key US data.</p></div>';
+      } catch (e) {
+        el.innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><p>Could not load the outlook.</p></div>';
+      }
+    }
   </script>
 
 </body>

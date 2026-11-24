@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /clipfarm-privacy.html
+
+Sitemap: https://instantnews24.net/sitemap.xml

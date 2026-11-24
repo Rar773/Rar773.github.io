@@ -1,0 +1,52 @@
+/* InstantNews — shared styles added on top of each page's own CSS */
+:root { --green: #22c55e; --green2: #4ade80; --amber: #ffb800; --gray2: #666; }
+
+.skip-link { position: absolute; left: -9999px; top: 8px; background: var(--red); color: #fff; padding: 8px 14px; border-radius: 6px; z-index: 1000; }
+.skip-link:focus { left: 8px; }
+a:focus-visible, button:focus-visible, input:focus-visible, .tab:focus-visible { outline: 2px solid var(--red2); outline-offset: 2px; border-radius: 4px; }
+
+/* nav extras */
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.live-status { display: inline-flex; align-items: center; gap: 7px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gray); letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 10px; border: 1px solid var(--border); border-radius: 100px; white-space: nowrap; }
+.live-status .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 0 rgba(34,197,94,.6); animation: livePulse 2s infinite; }
+.live-status.offline .live-dot { background: var(--gray2); animation: none; }
+@keyframes livePulse { 0% { box-shadow: 0 0 0 0 rgba(34,197,94,.55); } 70% { box-shadow: 0 0 0 7px rgba(34,197,94,0); } 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); } }
+.nav-links a.active { color: var(--white); }
+button.hamburger { background: none; border: none; }
+@media (max-width: 900px) { .nav-right .live-status { display: inline-flex; } }
+@media (max-width: 380px) { .live-status .live-text { display: none; } }
+
+/* footer */
+.site-footer { border-top: 1px solid var(--border); padding: 48px 60px 32px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; }
+.site-footer h4 { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 14px; font-weight: 500; }
+.site-footer ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.site-footer a { color: var(--gray); text-decoration: none; font-size: 14px; transition: color .2s; }
+.site-footer a:hover { color: var(--white); }
+.site-footer .footer-about { font-size: 13px; color: var(--gray); line-height: 1.7; margin-top: 14px; max-width: 320px; }
+.footer-bottom { grid-column: 1 / -1; border-top: 1px solid var(--border); padding-top: 20px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--gray2); }
+@media (max-width: 900px) { .site-footer { grid-template-columns: 1fr 1fr; padding: 40px 20px 28px; } .site-footer > div:first-child { grid-column: 1 / -1; } }
+
+/* shared bits */
+.empty { padding: 40px 0; text-align: center; color: var(--gray); font-size: 14px; line-height: 1.7; }
+.source-tag { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gray); border: 1px solid var(--border); padding: 2px 7px; border-radius: 3px; }
+.impact { display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.impact.High { background: var(--red); } .impact.Medium { background: var(--amber); }
+.btn-ghost { background: var(--bg3); color: var(--white); border: 1px solid var(--border); padding: 12px 22px; border-radius: 8px; font: 500 14px 'DM Sans', sans-serif; cursor: pointer; transition: border-color .2s; }
+.btn-ghost:hover { border-color: rgba(255,255,255,.2); }
+.btn-ghost[disabled] { opacity: .5; cursor: default; }
+.new-flash { animation: newFlash 2.5s ease; }
+@keyframes newFlash { 0% { background: rgba(255,45,45,.18); } 100% { background: transparent; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+/* legal / text pages */
+.doc { max-width: 760px; margin: 0 auto; padding: 60px 24px 80px; }
+.doc h1 { font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: .03em; margin-bottom: 8px; }
+.doc .updated { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--gray); margin-bottom: 40px; }
+.doc h2 { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: .04em; margin: 36px 0 12px; }
+.doc p, .doc li { color: #bbb; font-size: 15px; line-height: 1.8; }
+.doc ul { padding-left: 20px; margin: 8px 0; }
+.doc a { color: var(--red2); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }

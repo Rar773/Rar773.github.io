@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>US Economic Calendar This Week — InstantNews</title>
+  <meta name="description" content="This week's high- and medium-impact US economic releases in New York time, with forecasts, previous values and a live countdown to the next release.">
+  <!-- HEAD:START -->
+  <link rel="canonical" href="https://instantnews24.net/calendar.html">
+  <meta name="theme-color" content="#0a0a0b">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="InstantNews">
+  <meta property="og:url" content="https://instantnews24.net/calendar.html">
+  <meta property="og:title" content="US Economic Calendar This Week — InstantNews">
+  <meta property="og:description" content="This week's high- and medium-impact US economic releases in New York time, with forecasts, previous values and a live countdown to the next release.">
+  <meta property="og:image" content="https://instantnews24.net/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@InstantNews73">
+  <meta name="twitter:title" content="US Economic Calendar This Week — InstantNews">
+  <meta name="twitter:description" content="This week's high- and medium-impact US economic releases in New York time, with forecasts, previous values and a live countdown to the next release.">
+  <meta name="twitter:image" content="https://instantnews24.net/og-image.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script src="/assets/app.js"></script>
+  <!-- HEAD:END -->
+  <link rel="preload" href="/assets/fonts/bebas-neue-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/fonts.css">
+  <link rel="stylesheet" href="/assets/base.css">
+  <style>
+    .main { max-width: 1000px; margin: 0 auto; padding: 40px 24px 80px; }
+    .next { background: linear-gradient(135deg, rgba(255,45,45,0.1), rgba(255,45,45,0.03)); border: 1px solid rgba(255,45,45,0.25); border-radius: 14px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+    .next-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--red2); letter-spacing: .12em; text-transform: uppercase; }
+    .next-title { font-family: 'Bebas Neue', sans-serif; font-size: 30px; letter-spacing: .03em; line-height: 1.1; margin-top: 4px; }
+    .next-meta { font-size: 13px; color: var(--gray); margin-top: 4px; }
+    .countdown { font-family: 'DM Mono', monospace; font-size: 34px; color: var(--white); letter-spacing: .02em; }
+    .controls { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .chip { background: var(--bg2); border: 1px solid var(--border); color: var(--gray); padding: 8px 14px; border-radius: 100px; font: 500 13px 'DM Sans', sans-serif; cursor: pointer; }
+    .chip[aria-pressed="true"] { color: var(--white); border-color: rgba(255,45,45,.5); background: rgba(255,45,45,.08); }
+    .day { margin-bottom: 28px; }
+    .day-title { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--red); letter-spacing: .12em; text-transform: uppercase; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .day.today .day-title::after { content: ' · today'; color: var(--gray); }
+    .row { display: grid; grid-template-columns: 90px 16px 1fr 110px 110px; gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .row.past { opacity: .45; }
+    .row-time { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--gray); }
+    .row-title { font-weight: 500; }
+    .row-num { font-family: 'DM Mono', monospace; font-size: 13px; text-align: right; color: #bbb; }
+    .row-num small { display: block; font-size: 10px; color: var(--gray2); letter-spacing: .08em; text-transform: uppercase; }
+    .note { font-size: 13px; color: var(--gray); line-height: 1.7; margin-top: 32px; }
+    @media (max-width: 640px) {
+      .row { grid-template-columns: 70px 12px 1fr; }
+      .row-num { grid-column: 3; text-align: left; display: inline; }
+      .row-num small { display: inline; margin-right: 4px; }
+      .countdown { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV:START -->
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu">
+    <button class="mobile-menu-close" data-menu-close aria-label="Close menu">✕</button>
+    <a href="/">Home</a>
+    <a href="/news.html">News</a>
+    <a href="/moo-moc.html">Markets</a>
+    <a href="/calendar.html">Calendar</a>
+    <a href="/index.html#faq">About</a>
+    <a href="https://x.com/InstantNews73" target="_blank" rel="noopener" class="mobile-cta">Follow on X</a>
+  </div>
+  <nav aria-label="Main">
+    <a href="/" class="logo" aria-label="InstantNews home">
+      <div class="logo-icon" aria-hidden="true">⚡</div>
+      <div class="logo-text">Instant<span>News</span></div>
+    </a>
+    <div class="nav-right">
+      <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/news.html">News</a></li>
+      <li><a href="/moo-moc.html">Markets</a></li>
+      <li><a href="/calendar.html" class="active" aria-current="page">Calendar</a></li>
+      <li><a href="/index.html#faq">About</a></li>
+        <li><a href="https://x.com/InstantNews73" target="_blank" rel="noopener" class="nav-cta">Follow on X</a></li>
+      </ul>
+      <span class="live-status" id="live-status" title="Live feed status"><span class="live-dot" aria-hidden="true"></span><span class="live-text">Live</span></span>
+      <button class="hamburger" data-menu-open aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <!-- NAV:END -->
+
+  <main id="main">
+    <div class="page-header">
+      <h1 class="page-title">Economic <span>Calendar</span></h1>
+      <div class="page-subtitle">US releases this week · all times New York (ET) · your local time on hover</div>
+    </div>
+    <div class="main">
+      <div class="next" id="next" style="display:none">
+        <div>
+          <div class="next-label">Next high-impact release</div>
+          <div class="next-title" id="next-title"></div>
+          <div class="next-meta" id="next-meta"></div>
+        </div>
+        <div class="countdown" id="countdown" aria-live="off"></div>
+      </div>
+      <div class="controls" role="group" aria-label="Filter by impact">
+        <button class="chip" id="f-high" aria-pressed="true">🔴 High impact</button>
+        <button class="chip" id="f-all" aria-pressed="false">🔴🟡 High + medium</button>
+      </div>
+      <div id="cal"><div class="empty">Loading…</div></div>
+      <p class="note">We post a ⏰ heads-up on <a href="https://t.me/FastestNewsFeed" target="_blank" rel="noopener" style="color:var(--red2)">Telegram</a> 5 minutes before every high-impact release and the actual numbers the moment they come out. Calendar data: ForexFactory.</p>
+    </div>
+  </main>
+
+  <!-- FOOTER:START -->
+  <footer class="site-footer">
+    <div>
+      <a href="/" class="logo" aria-label="InstantNews home">
+        <div class="logo-icon" style="width:28px;height:28px;font-size:14px" aria-hidden="true">⚡</div>
+        <div class="logo-text" style="font-size:20px">Instant<span>News</span></div>
+      </a>
+      <p class="footer-about">Breaking financial and geopolitical news, 24/7. We publish market-moving headlines within seconds and add AI context to the numbers that matter.</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="/news.html">Latest news</a></li>
+        <li><a href="/moo-moc.html">MOO / MOC imbalances</a></li>
+        <li><a href="/moo-moc.html?view=cftc">CFTC positioning</a></li>
+        <li><a href="/calendar.html">Economic calendar</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Follow</h4>
+      <ul>
+        <li><a href="https://t.me/FastestNewsFeed" target="_blank" rel="noopener">Telegram @FastestNewsFeed</a></li>
+        <li><a href="https://x.com/InstantNews73" target="_blank" rel="noopener">X @InstantNews73</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/privacy.html">Privacy policy</a></li>
+        <li><a href="/terms.html">Terms of use</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> InstantNews. News and information only — not financial advice.</span>
+      <span>No cookies. No tracking.</span>
+    </div>
+  </footer>
+  <!-- FOOTER:END -->
+
+  <script>
+    let events = [], mode = 'High', nextEv = null;
+    function render() {
+      const el = document.getElementById('cal');
+      const list = events.filter(e => mode === 'all' || e.impact === 'High');
+      if (!list.length) { el.innerHTML = '<div class="empty">No US releases found for this week.</div>'; return; }
+      const days = {};
+      list.forEach(e => (days[dayET(e.date)] ||= []).push(e));
+      const today = dayET(new Date().toISOString());
+      el.innerHTML = Object.entries(days).map(([d, evs]) =>
+        '<section class="day' + (d === today ? ' today' : '') + '"><h2 class="day-title" style="font-weight:400">' + esc(d) + '</h2>' +
+        evs.map(e => {
+          const t = Date.parse(e.date), local = new Date(t).toLocaleString([], { weekday: 'short', hour: '2-digit', minute: '2-digit' });
+          return '<div class="row' + (t < Date.now() ? ' past' : '') + '"><span class="row-time" title="Your time: ' + esc(local) + '">' + timeET(e.date).replace(' ET', '') + '</span>' +
+            '<span class="impact ' + e.impact + '" title="' + e.impact + ' impact"></span><span class="row-title">' + esc(e.title) + '</span>' +
+            '<span class="row-num"><small>Forecast</small>' + esc(e.forecast || '—') + '</span><span class="row-num"><small>Previous</small>' + esc(e.previous || '—') + '</span></div>';
+        }).join('') + '</section>').join('');
+    }
+    function tick() {
+      const box = document.getElementById('next');
+      if (!nextEv || Date.parse(nextEv.date) < Date.now()) {
+        nextEv = events.find(e => e.impact === 'High' && Date.parse(e.date) > Date.now()) || null;
+        if (!nextEv) { box.style.display = 'none'; return; }
+        document.getElementById('next-title').textContent = nextEv.title;
+        document.getElementById('next-meta').textContent = dayET(nextEv.date) + ' · ' + timeET(nextEv.date) + (nextEv.forecast ? ' · Forecast ' + nextEv.forecast : '');
+        box.style.display = 'flex';
+        render();
+      }
+      let s = Math.max(0, Math.floor((Date.parse(nextEv.date) - Date.now()) / 1000));
+      const d = Math.floor(s / 86400); s %= 86400;
+      const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), sec = s % 60;
+      document.getElementById('countdown').textContent = (d ? d + 'd ' : '') + String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
+    }
+    async function load() {
+      try {
+        events = (await api('/api/calendar')).sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+        nextEv = null; render(); tick();
+      } catch { document.getElementById('cal').innerHTML = '<div class="empty">⚠️ Calendar temporarily unavailable.</div>'; }
+    }
+    function setMode(m) {
+      mode = m;
+      document.getElementById('f-high').setAttribute('aria-pressed', m === 'High');
+      document.getElementById('f-all').setAttribute('aria-pressed', m === 'all');
+      render();
+    }
+    document.getElementById('f-high').onclick = () => setMode('High');
+    document.getElementById('f-all').onclick = () => setMode('all');
+    load(); setInterval(tick, 1000); setInterval(load, 15 * 60000);
+  </script>
+</body>
+</html>
